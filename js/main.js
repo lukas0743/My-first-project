@@ -45,10 +45,8 @@
   const hero = $('.hero');
   if (hero && !reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const layers = [
-      ['.scene__back', 6],
-      ['.scene__mid', 10],
-      ['.scene__bottles', 16],
-      ['.scene__front', 24],
+      ['.hero__glow', 8],
+      ['.hero__shots', 14],
     ].map(([sel, depth]) => [$(sel), depth]);
 
     let frame = 0;
@@ -158,7 +156,7 @@
   const bagList = $('#bagList');
   const itemsHTML = () => Object.keys(bag).map((name) => {
     const item = CATALOG[name];
-    const thumbs = item.bottles.map((b) => `<svg viewBox="0 0 200 520" aria-hidden="true"><use href="#bottle-${b}"/></svg>`).join('');
+    const thumbs = item.bottles.map((b) => `<img src="assets/${b}.jpg" alt="" width="1122" height="1402">`).join('');
     return `<li class="bag__item" data-name="${name}">
         <a class="bag__thumb" href="${item.href}" aria-label="${name}">${thumbs}</a>
         <div>
@@ -265,8 +263,8 @@
 
   /* ---------- Search (header search bar + search.html) ---------- */
   const INDEX = [
-    ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shampoo.html', 'rosemary aloe vera cleanse scalp'],
-    ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'conditioner.html', 'argan oil coconut care shine'],
+    ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shampoo.html', 'rosemary aloe vera argan oil cleanse scalp'],
+    ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'conditioner.html', 'argan oil aloe vera rosemary care shine'],
     ['Product', 'The Duo', 'Shampoo & Conditioner set', 'duo.html', 'set bundle'],
     ['Haircare', 'The AZULA Ritual', 'Cleanse, care, result – in three steps', 'shop.html#ritual', 'routine how to use'],
     ['Ingredient', 'Aloe Vera', 'Soothes & Moisturizes', 'ingredients.html', 'scalp moisture'],
