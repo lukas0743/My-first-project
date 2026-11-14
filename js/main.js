@@ -71,9 +71,9 @@
   const cartCount = $('#cartCount');
   const toast = $('#toast');
   const CATALOG = {
-    'Shampoo': { price: 24.9, meta: '500 ml', bottles: ['shampoo'], href: 'shop.html#shampoo' },
-    'Conditioner': { price: 24.9, meta: '500 ml', bottles: ['conditioner'], href: 'shop.html#conditioner' },
-    'The Duo': { price: 44.9, meta: '2 × 500 ml', bottles: ['shampoo', 'conditioner'], href: 'shop.html#duo' },
+    'Shampoo': { price: 24.9, meta: '500 ml', bottles: ['shampoo'], href: 'shampoo.html' },
+    'Conditioner': { price: 24.9, meta: '500 ml', bottles: ['conditioner'], href: 'conditioner.html' },
+    'The Duo': { price: 44.9, meta: '2 × 500 ml', bottles: ['shampoo', 'conditioner'], href: 'duo.html' },
   };
   const euro = (n) => '€' + n.toFixed(2);
   const store = {
@@ -95,27 +95,74 @@
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
   };
 
-  const renderCart = () => {
-    const count = Object.values(bag).reduce((sum, qty) => sum + qty, 0);
-    cartCount.textContent = count;
-    cartBtn.setAttribute('aria-label', `Shopping bag, ${count} item${count === 1 ? '' : 's'}`);
-    renderBagPage();
+  /* ---------- Overlays (bag drawer + search bar) ---------- */
+  const backdrop = document.createElement('div');
+  backdrop.className = 'backdrop';
+  document.body.append(backdrop);
+  let openPanel = null;
+  let lastFocus = null;
+  const closeOverlay = () => {
+    if (!openPanel) return;
+    openPanel.classList.remove('is-open');
+    openPanel.inert = true;
+    backdrop.classList.remove('is-visible');
+    document.body.style.overflow = '';
+    openPanel = null;
+    if (lastFocus) lastFocus.focus();
   };
+  const openOverlay = (panel, focusEl) => {
+    if (openPanel === panel) return;
+    const opener = openPanel ? lastFocus : document.activeElement;
+    closeOverlay();
+    setMenu(false);
+    lastFocus = opener;
+    openPanel = panel;
+    panel.inert = false;
+    panel.classList.add('is-open');
+    backdrop.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+    // wait until the panel is visible, otherwise the browser refuses to focus it
+    setTimeout(() => { if (openPanel === panel) focusEl.focus({ preventScroll: true }); }, 80);
+  };
+  backdrop.addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
 
-  /* Bag page (cart.html) */
+  /* ---------- Bag rendering (drawer + cart.html) ---------- */
+  const drawer = document.createElement('aside');
+  drawer.className = 'drawer';
+  drawer.id = 'bagDrawer';
+  drawer.inert = true;
+  drawer.setAttribute('role', 'dialog');
+  drawer.setAttribute('aria-modal', 'true');
+  drawer.setAttribute('aria-label', 'Shopping bag');
+  drawer.innerHTML = `
+    <header class="drawer__head">
+      <h2 class="drawer__title">Your Bag <span id="drawerCount"></span></h2>
+      <button class="drawer__close" type="button" data-close aria-label="Close bag"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+    </header>
+    <div class="drawer__body">
+      <div class="drawer__empty" id="drawerEmpty">
+        <p>Your bag is still empty.</p>
+        <a class="btn btn--bronze btn--sm" href="shop.html">Shop the Collection</a>
+      </div>
+      <ul class="bag__list bag__list--compact" id="drawerList" aria-label="Items in your bag"></ul>
+    </div>
+    <footer class="drawer__foot" id="drawerFoot">
+      <p class="drawer__total"><span>Subtotal</span><strong id="drawerTotal"></strong></p>
+      <p class="drawer__note">Shipping is calculated at checkout.</p>
+      <button class="btn btn--bronze" type="button" data-checkout>Checkout</button>
+      <a class="link-arrow" href="cart.html">View full bag <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </footer>`;
+  document.body.append(drawer);
+
   const bagList = $('#bagList');
-  function renderBagPage() {
-    if (!bagList) return;
-    const names = Object.keys(bag);
-    $('#bagEmpty').hidden = names.length > 0;
-    $('#bagFull').hidden = names.length === 0;
-    bagList.innerHTML = names.map((name) => {
-      const item = CATALOG[name];
-      const thumbs = item.bottles.map((b) => `<svg viewBox="0 0 200 520" aria-hidden="true"><use href="#bottle-${b}"/></svg>`).join('');
-      return `<li class="bag__item" data-name="${name}">
+  const itemsHTML = () => Object.keys(bag).map((name) => {
+    const item = CATALOG[name];
+    const thumbs = item.bottles.map((b) => `<svg viewBox="0 0 200 520" aria-hidden="true"><use href="#bottle-${b}"/></svg>`).join('');
+    return `<li class="bag__item" data-name="${name}">
         <a class="bag__thumb" href="${item.href}" aria-label="${name}">${thumbs}</a>
         <div>
-          <h2 class="bag__name">${name}</h2>
+          <h3 class="bag__name">${name}</h3>
           <p class="bag__meta">${item.meta} · ${euro(item.price)}</p>
           <div class="bag__controls">
             <span class="qty">
@@ -128,36 +175,82 @@
         </div>
         <span class="bag__price">${euro(item.price * bag[name])}</span>
       </li>`;
-    }).join('');
+  }).join('');
+
+  const renderCart = () => {
+    const names = Object.keys(bag);
+    const count = names.reduce((sum, name) => sum + bag[name], 0);
     const total = names.reduce((sum, name) => sum + CATALOG[name].price * bag[name], 0);
-    $('#bagSubtotal').textContent = euro(total);
-    $('#bagTotal').textContent = euro(total);
-  }
+    const html = itemsHTML();
+
+    cartCount.textContent = count;
+    cartBtn.setAttribute('aria-label', `Shopping bag, ${count} item${count === 1 ? '' : 's'}`);
+
+    $('#drawerCount').textContent = count ? `(${count})` : '';
+    $('#drawerList').innerHTML = html;
+    $('#drawerEmpty').hidden = names.length > 0;
+    $('#drawerFoot').hidden = names.length === 0;
+    $('#drawerTotal').textContent = euro(total);
+
+    if (bagList) {
+      bagList.innerHTML = html;
+      $('#bagEmpty').hidden = names.length > 0;
+      $('#bagFull').hidden = names.length === 0;
+      $('#bagSubtotal').textContent = euro(total);
+      $('#bagTotal').textContent = euro(total);
+    }
+  };
+
+  const onBagClick = (e) => {
+    if (e.target.closest('[data-close]')) return closeOverlay();
+    if (e.target.closest('[data-checkout]')) return showToast('Checkout is not connected yet');
+    const btn = e.target.closest('[data-step]');
+    if (!btn) return;
+    const row = btn.closest('.bag__item');
+    const name = row.dataset.name;
+    const list = row.parentElement;
+    if (btn.dataset.step === 'remove') delete bag[name];
+    else bag[name] += Number(btn.dataset.step);
+    if (bag[name] <= 0) delete bag[name];
+    store.set(bag);
+    renderCart();
+    // lists are re-rendered: keep keyboard focus on the same control
+    const again = list.querySelector(`[data-name="${name}"] [data-step="${btn.dataset.step}"]`);
+    if (again) again.focus();
+    else if (list.id === 'drawerList') $('.drawer__close').focus();
+  };
+  drawer.addEventListener('click', onBagClick);
   if (bagList) {
-    bagList.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-step]');
-      if (!btn) return;
-      const name = btn.closest('.bag__item').dataset.name;
-      if (btn.dataset.step === 'remove') delete bag[name];
-      else bag[name] += Number(btn.dataset.step);
-      if (bag[name] <= 0) delete bag[name];
-      store.set(bag);
-      renderCart();
-    });
+    bagList.addEventListener('click', onBagClick);
     $('#checkoutBtn').addEventListener('click', () => showToast('Checkout is not connected yet'));
   }
   renderCart();
 
+  const openBag = () => openOverlay(drawer, $('.drawer__close'));
+  // on cart.html the icon simply stays a link to the page you are on
+  if (!bagList) cartBtn.addEventListener('click', (e) => { e.preventDefault(); openBag(); });
+
   $$('[data-add]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const name = btn.dataset.add;
-      bag[name] = (bag[name] || 0) + 1;
+      const qtyEl = 'useQty' in btn.dataset ? $('#pdpQty') : null;
+      const qty = qtyEl ? Number(qtyEl.textContent) : 1;
+      bag[name] = (bag[name] || 0) + qty;
       store.set(bag);
       renderCart();
       cartCount.classList.remove('bump');
       void cartCount.offsetWidth; // restart animation
       cartCount.classList.add('bump');
-      showToast(`${name} added to your bag`);
+      if (bagList) showToast(`${qty > 1 ? qty + ' × ' : ''}${name} added to your bag`);
+      else openBag();
+    });
+  });
+
+  /* ---------- Product page quantity ---------- */
+  const pdpQty = $('#pdpQty');
+  if (pdpQty) $$('[data-qty]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      pdpQty.textContent = Math.min(10, Math.max(1, Number(pdpQty.textContent) + Number(btn.dataset.qty)));
     });
   });
 
@@ -170,53 +263,99 @@
       : 'Please enter your email and a password of at least 6 characters.';
   });
 
-  /* ---------- Search ---------- */
+  /* ---------- Search (header search bar + search.html) ---------- */
+  const INDEX = [
+    ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shampoo.html', 'rosemary aloe vera cleanse scalp'],
+    ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'conditioner.html', 'argan oil coconut care shine'],
+    ['Product', 'The Duo', 'Shampoo & Conditioner set', 'duo.html', 'set bundle'],
+    ['Haircare', 'The AZULA Ritual', 'Cleanse, care, result – in three steps', 'shop.html#ritual', 'routine how to use'],
+    ['Ingredient', 'Aloe Vera', 'Soothes & Moisturizes', 'ingredients.html', 'scalp moisture'],
+    ['Ingredient', 'Rosemary', 'Stimulates Hair Growth', 'ingredients.html', 'growth root'],
+    ['Ingredient', 'Argan Oil', 'Nourishes & Adds Shine', 'ingredients.html', 'dry lengths'],
+    ['Ingredient', 'Coconut', 'Strengthens & Repairs', 'ingredients.html', 'repair structure'],
+    ['Page', 'Our Philosophy', 'Natural Care. Real Results.', 'philosophy.html', 'about brand vegan silicone free natural'],
+    ['Magazine', 'Why healthy hair starts at the scalp', 'Scalp Care · 4 min read', 'magazine.html', ''],
+    ['Magazine', 'Rosemary: the oldest secret for stronger hair', 'Ingredients · 5 min read', 'magazine.html', ''],
+    ['Magazine', 'The two-step evening ritual for lasting shine', 'Ritual · 3 min read', 'magazine.html', ''],
+    ['Magazine', 'Argan oil – liquid gold for dry lengths', 'Ingredients · 4 min read', 'magazine.html', ''],
+    ['Magazine', 'Silicones explained: what they do to your hair', 'Scalp Care · 6 min read', 'magazine.html', ''],
+    ['Magazine', 'How often should you really wash your hair?', 'Ritual · 4 min read', 'magazine.html', ''],
+  ];
+  const findHits = (query) => {
+    const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+    return INDEX.filter((entry) => {
+      const text = entry.join(' ').toLowerCase();
+      return words.every((w) => text.includes(w));
+    });
+  };
+  const renderHits = (listEl, hits) => {
+    listEl.replaceChildren(...hits.map(([type, title, desc, href]) => {
+      const li = document.createElement('li');
+      li.innerHTML = '<a><span class="search__type"></span><span class="search__title"><span></span><span class="search__desc"></span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>';
+      li.firstChild.href = href;
+      li.querySelector('.search__type').textContent = type;
+      li.querySelector('.search__title span').textContent = title;
+      li.querySelector('.search__desc').textContent = desc;
+      return li;
+    }));
+  };
+  const countLabel = (query, n) => (query.trim() ? `${n} result${n === 1 ? '' : 's'}` : 'Suggestions');
+
+  // search.html
   const searchForm = $('#searchForm');
   if (searchForm) {
-    const INDEX = [
-      ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shop.html#shampoo', 'rosemary aloe vera cleanse scalp'],
-      ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'shop.html#conditioner', 'argan oil coconut care shine'],
-      ['Product', 'The Duo', 'Shampoo & Conditioner set', 'shop.html#duo', 'set bundle'],
-      ['Haircare', 'The AZULA Ritual', 'Cleanse, care, result – in three steps', 'shop.html#ritual', 'routine how to use'],
-      ['Ingredient', 'Aloe Vera', 'Soothes & Moisturizes', 'ingredients.html', 'scalp moisture'],
-      ['Ingredient', 'Rosemary', 'Stimulates Hair Growth', 'ingredients.html', 'growth root'],
-      ['Ingredient', 'Argan Oil', 'Nourishes & Adds Shine', 'ingredients.html', 'dry lengths'],
-      ['Ingredient', 'Coconut', 'Strengthens & Repairs', 'ingredients.html', 'repair structure'],
-      ['Page', 'Our Philosophy', 'Natural Care. Real Results.', 'philosophy.html', 'about brand vegan silicone free natural'],
-      ['Magazine', 'Why healthy hair starts at the scalp', 'Scalp Care · 4 min read', 'magazine.html', ''],
-      ['Magazine', 'Rosemary: the oldest secret for stronger hair', 'Ingredients · 5 min read', 'magazine.html', ''],
-      ['Magazine', 'The two-step evening ritual for lasting shine', 'Ritual · 3 min read', 'magazine.html', ''],
-      ['Magazine', 'Argan oil – liquid gold for dry lengths', 'Ingredients · 4 min read', 'magazine.html', ''],
-      ['Magazine', 'Silicones explained: what they do to your hair', 'Scalp Care · 6 min read', 'magazine.html', ''],
-      ['Magazine', 'How often should you really wash your hair?', 'Ritual · 4 min read', 'magazine.html', ''],
-    ];
     const input = $('#searchInput');
-    const results = $('#searchResults');
-    const countEl = $('#searchCount');
     const runSearch = () => {
-      const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
-      const hits = INDEX.filter((entry) => {
-        const text = entry.join(' ').toLowerCase();
-        return words.every((w) => text.includes(w));
-      });
-      countEl.textContent = words.length
-        ? `${hits.length} result${hits.length === 1 ? '' : 's'}`
-        : 'Suggestions';
-      results.replaceChildren(...hits.map(([type, title, desc, href]) => {
-        const li = document.createElement('li');
-        li.innerHTML = '<a><span class="search__type"></span><span class="search__title"><span></span><span class="search__desc"></span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>';
-        li.firstChild.href = href;
-        li.querySelector('.search__type').textContent = type;
-        li.querySelector('.search__title span').textContent = title;
-        li.querySelector('.search__desc').textContent = desc;
-        return li;
-      }));
+      const hits = findHits(input.value);
+      $('#searchCount').textContent = countLabel(input.value, hits.length);
+      renderHits($('#searchResults'), hits);
     };
     input.value = new URLSearchParams(location.search).get('q') || '';
     input.addEventListener('input', runSearch);
     searchForm.addEventListener('submit', (e) => { e.preventDefault(); runSearch(); });
     runSearch();
     input.focus();
+  }
+
+  // search bar that drops down from the header
+  const searchLink = $('.icon-btn[href="search.html"]');
+  if (searchLink && !searchForm) {
+    const bar = document.createElement('div');
+    bar.className = 'searchbar';
+    bar.inert = true;
+    bar.setAttribute('role', 'dialog');
+    bar.setAttribute('aria-modal', 'true');
+    bar.setAttribute('aria-label', 'Search');
+    bar.innerHTML = `
+      <div class="container searchbar__inner">
+        <form class="searchbar__form" role="search" action="search.html">
+          <svg aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr-only" for="barInput">Search AZULA</label>
+          <input type="search" id="barInput" name="q" placeholder="Search products, ingredients, articles …" autocomplete="off">
+          <button class="drawer__close" type="button" data-close aria-label="Close search"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+        </form>
+        <p class="search__count" id="barCount" role="status" aria-live="polite"></p>
+        <ul class="search__results" id="barResults"></ul>
+        <a class="link-arrow" id="barAll" href="search.html">See all results <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>`;
+    document.body.append(bar);
+    const barInput = $('#barInput');
+    const runBar = () => {
+      const q = barInput.value;
+      const hits = findHits(q);
+      $('#barCount').textContent = countLabel(q, hits.length);
+      renderHits($('#barResults'), q.trim() ? hits.slice(0, 5) : hits.slice(0, 3));
+      const all = $('#barAll');
+      all.href = 'search.html' + (q.trim() ? '?q=' + encodeURIComponent(q.trim()) : '');
+      all.hidden = hits.length === 0;
+    };
+    barInput.addEventListener('input', runBar);
+    bar.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeOverlay(); });
+    searchLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      runBar();
+      openOverlay(bar, barInput);
+    });
   }
 
   /* ---------- Newsletter (front-end only) ---------- */
