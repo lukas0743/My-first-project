@@ -349,6 +349,25 @@ svg { display: block; }
 .article h3 { margin-top: 12px; font-family: var(--serif); font-weight: 500; font-size: clamp(1.4rem, 1.7vw, 1.8rem); line-height: 1.2; }
 .article__meta { margin-top: 16px; font-size: 12.5px; color: var(--taupe); }
 
+/* ---------- Reviews ---------- */
+.reviews__summary { display: flex; align-items: center; gap: 16px; }
+.reviews__summary strong { font-family: var(--serif); font-weight: 500; font-size: 3.4rem; line-height: 1; color: var(--bronze-light); }
+.reviews__summary span { display: flex; flex-direction: column; gap: 2px; }
+.reviews__summary small { font-size: 12.5px; color: var(--taupe); }
+.review {
+  margin: 0; display: flex; flex-direction: column; padding: 30px;
+  border: 1px solid var(--line-soft); border-radius: 14px;
+  background: linear-gradient(160deg, #141211, #0b0b0b);
+  transition: border-color .5s, opacity 1s var(--ease) var(--d, 0s), transform 1s var(--ease) var(--d, 0s);
+}
+.review:hover { border-color: var(--line); }
+.review blockquote { margin: 18px 0 26px; }
+.review h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.4rem, 1.7vw, 1.8rem); line-height: 1.2; }
+.review blockquote p { margin-top: 12px; font-size: 14.5px; line-height: 1.6; color: rgba(245, 237, 226, .8); }
+.review figcaption { margin-top: auto; padding-top: 18px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line-soft); font-size: 13px; }
+.review__name { font-weight: 500; }
+.review figcaption a { color: var(--bronze-light); border-bottom: 1px solid var(--line); }
+
 /* ---------- Newsletter ---------- */
 .newsletter { padding-block: clamp(70px, 9vw, 130px); text-align: center; border-top: 1px solid var(--line-soft); background: radial-gradient(45% 70% at 50% 100%, rgba(201, 146, 94, .12), transparent 70%); }
 .newsletter__inner { display: flex; flex-direction: column; align-items: center; }
