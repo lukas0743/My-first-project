@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Bag — AZULA Natural Care</title>
+  <meta name="description" content="Your Bag — AZULA Natural Care">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ SVG SPRITE ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-bronze" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F0C398"/>
+      <stop offset=".5" stop-color="#C9925E"/>
+      <stop offset="1" stop-color="#8E5A30"/>
+    </linearGradient>
+    <linearGradient id="g-bronze-h" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6E4423"/>
+      <stop offset=".3" stop-color="#F0C398"/>
+      <stop offset=".6" stop-color="#C9925E"/>
+      <stop offset="1" stop-color="#5E3A1E"/>
+    </linearGradient>
+    <linearGradient id="g-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset=".07" stop-color="#3b352f"/>
+      <stop offset=".2" stop-color="#2b2724"/>
+      <stop offset=".4" stop-color="#0e0d0c"/>
+      <stop offset=".72" stop-color="#0b0a0a"/>
+      <stop offset=".88" stop-color="#2a221c"/>
+      <stop offset=".965" stop-color="#6b4a30"/>
+      <stop offset="1" stop-color="#0a0806"/>
+    </linearGradient>
+    <linearGradient id="g-cap" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#040404"/>
+      <stop offset=".2" stop-color="#34302c"/>
+      <stop offset=".42" stop-color="#121110"/>
+      <stop offset=".8" stop-color="#1f1c1a"/><stop offset=".95" stop-color="#5a3f2a"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <radialGradient id="g-nut" cx=".35" cy=".3" r=".8">
+      <stop offset="0" stop-color="#C98A52"/>
+      <stop offset=".45" stop-color="#7A4522"/>
+      <stop offset="1" stop-color="#2A1408"/>
+    </radialGradient>
+    <linearGradient id="g-rock" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a382b"/>
+      <stop offset=".45" stop-color="#1b1714"/>
+      <stop offset="1" stop-color="#070707"/>
+    </linearGradient>
+    <linearGradient id="g-rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C9925E" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#C9925E" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo mark -->
+  <symbol id="logo-mark" viewBox="0 0 56 52">
+    <path d="M5 49 L27 4 L33 16 M30 10 L51 49" fill="none" stroke="#F5EDE2" stroke-width="3.2" stroke-linecap="square"/>
+    <path d="M13 40 C22 27 36 22 50 17 C45 31 31 39 13 40Z" fill="url(#g-bronze)"/>
+    <path d="M15 39 C26 33 37 27 48 19" fill="none" stroke="#0A0A0A" stroke-opacity=".35" stroke-width=".8"/>
+  </symbol>
+
+  <!-- Bottle base -->
+  <symbol id="bottle-base" viewBox="0 0 200 520">
+    <rect x="62" y="2" width="76" height="70" rx="5" fill="url(#g-cap)"/>
+    <rect x="60" y="72" width="80" height="6" rx="1" fill="url(#g-bronze-h)"/>
+    <path d="M60 78 C60 100 14 102 14 142 L14 500 Q14 512 26 512 L174 512 Q186 512 186 500 L186 142 C186 102 140 100 140 78 Z" fill="url(#g-body)"/>
+    <rect x="14" y="490" width="172" height="5" fill="url(#g-bronze-h)"/>
+    <text x="100" y="212" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="27" letter-spacing="8" fill="#F5EDE2" font-weight="500">AZULA</text>
+    <text x="100" y="231" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="6.5" letter-spacing="3" fill="#F5EDE2" font-weight="500">NATURAL CARE</text>
+    <use href="#logo-mark" x="72" y="250" width="56" height="52"/>
+    <line x1="60" y1="386" x2="140" y2="386" stroke="#C9925E" stroke-width=".8" opacity=".8"/>
+    <text x="100" y="474" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="9" fill="#F5EDE2" font-weight="500">500 ml ℮</text>
+  </symbol>
+  <symbol id="bottle-shampoo" viewBox="0 0 200 520">
+    <use href="#bottle-base" width="200" height="520"/>
+    <text x="100" y="338" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="15" letter-spacing="3" fill="#D9A06B">SHAMPOO</text>
+    <text x="100" y="364" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="6.2" letter-spacing="1.2" fill="#F5EDE2" font-weight="500">STRENGTHEN · NOURISH · BALANCE</text>
+  </symbol>
+  <symbol id="bottle-conditioner" viewBox="0 0 200 520">
+    <use href="#bottle-base" width="200" height="520"/>
+    <text x="100" y="338" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="15" letter-spacing="2.4" fill="#D9A06B">CONDITIONER</text>
+    <text x="100" y="364" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="6.2" letter-spacing="1.2" fill="#F5EDE2" font-weight="500">HYDRATE · REPAIR · RESTORE</text>
+  </symbol>
+
+  <!-- Rosemary sprig (generated) -->
+  <symbol id="sprig" viewBox="0 0 160 300"><path d="M80.0 296.0 L81.2 284.1 L82.4 272.2 L83.6 260.3 L84.8 248.3 L85.9 236.4 L87.0 224.5 L88.1 212.6 L89.1 200.7 L90.1 188.8 L91.0 176.8 L91.9 164.9 L92.7 153.0 L93.5 141.1 L94.1 129.2 L94.7 117.3 L95.2 105.3 L95.6 93.4 L96.0 81.5 L96.2 69.6 L96.3 57.7 L96.4 45.8 L96.3 33.8 L96.2 21.9 L95.9 10.0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M82.4 272.2l-21.4 -31.3M82.4 272.2l21.6 -31.2M83.6 260.3l-19.0 -42.2M83.6 260.3l29.7 -35.5M84.8 248.3l-19.4 -38.5M84.8 248.3l32.0 -28.9M85.9 236.4l-21.1 -28.5M85.9 236.4l23.0 -27.0M87.0 224.5l-23.8 -38.6M87.0 224.5l25.4 -37.5M88.1 212.6l-14.5 -33.3M88.1 212.6l24.7 -26.6M89.1 200.7l-17.9 -30.0M89.1 200.7l25.4 -24.0M90.1 188.8l-25.8 -33.5M90.1 188.8l25.1 -34.0M91.0 176.8l-14.8 -26.6M91.0 176.8l17.3 -24.9M91.9 164.9l-15.0 -32.1M91.9 164.9l25.0 -25.1M92.7 153.0l-21.4 -30.3M92.7 153.0l25.4 -27.0M93.5 141.1l-16.0 -20.9M93.5 141.1l14.3 -22.1M94.1 129.2l-16.3 -31.5M94.1 129.2l21.1 -28.5M94.7 117.3l-14.6 -26.8M94.7 117.3l21.6 -21.6M95.2 105.3l-15.4 -19.0M95.2 105.3l15.2 -19.1M95.6 93.4l-20.0 -27.5M95.6 93.4l17.3 -29.2M96.0 81.5l-10.9 -21.2M96.0 81.5l14.8 -18.7M96.2 69.6l-13.4 -20.2M96.2 69.6l16.6 -17.7M96.3 57.7l-20.2 -22.6M96.3 57.7l16.6 -25.4M96.4 45.8l-10.3 -15.1M96.4 45.8l9.2 -15.9M96.3 33.8l-12.1 -21.6M96.3 33.8l15.8 -19.1M96.2 21.9l-15.5 -19.2M96.2 21.9l15.7 -19.1M95.9 10.0l-10.1 -10.9M95.9 10.0l7.1 -13.0" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+
+  <!-- Argan nuts -->
+  <symbol id="argan" viewBox="0 0 140 90">
+    <ellipse cx="46" cy="52" rx="34" ry="26" fill="url(#g-nut)" transform="rotate(-18 46 52)"/>
+    <ellipse cx="92" cy="36" rx="30" ry="23" fill="url(#g-nut)" transform="rotate(14 92 36)"/>
+    <ellipse cx="100" cy="66" rx="26" ry="18" fill="#5a3218"/>
+    <ellipse cx="100" cy="63" rx="22" ry="14" fill="#E8D2A6"/>
+    <ellipse cx="100" cy="64" rx="10" ry="6" fill="#C9925E" opacity=".7"/>
+    <ellipse cx="36" cy="40" rx="10" ry="5" fill="#F0C398" opacity=".35" transform="rotate(-25 36 40)"/>
+  </symbol>
+
+  <!-- Aloe / Coconut -->
+  <symbol id="aloe" viewBox="0 0 120 90"><path d="M8 74 C30 40 70 30 112 34 C96 60 56 80 8 74Z" fill="#3f6b3a"/><path d="M8 74 C36 52 74 40 112 34 C80 34 40 46 8 74Z" fill="#6fa35f"/><path d="M20 84 C36 58 60 50 92 54 C82 72 54 88 20 84Z" fill="#4c7d45"/><path d="M78 52 L92 54 C88 62 82 68 74 73Z" fill="#cfe6b8" opacity=".85"/><path d="M30 40 C40 22 60 14 84 16 C76 32 56 44 30 40Z" fill="#35592f"/><path d="M72 14 L84 16 C81 22 77 27 71 31Z" fill="#cfe6b8" opacity=".7"/></symbol>
+  <symbol id="coconut" viewBox="0 0 120 90"><ellipse cx="60" cy="48" rx="40" ry="34" fill="#4a2c17" transform="rotate(-18 60 48)"/><ellipse cx="57" cy="45" rx="35" ry="29" fill="#F5EDE2" transform="rotate(-18 57 45)"/><ellipse cx="54" cy="43" rx="22" ry="17" fill="#d9cdbd" transform="rotate(-18 54 43)"/><ellipse cx="50" cy="40" rx="12" ry="8" fill="#F5EDE2" opacity=".7" transform="rotate(-18 50 40)"/></symbol>
+
+  <!-- Icons -->
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M2 3h3l2.6 12h10.8L21 6.5H6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="17.5" cy="20" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3 12h17m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z" fill="currentColor"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 32 32"><path d="M6 26C5 14 12 5 27 5c0 14-8 22-21 21zm0 0L19 13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 32 32"><path d="M12.5 4h7M13.5 4v9L6.5 25a2 2 0 0 0 1.8 3h15.4a2 2 0 0 0 1.8-3l-7-12V4M10 20h12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lotus" viewBox="0 0 32 32"><path d="M16 27c-5-5-5-15 0-22 5 7 5 17 0 22zm0 0C9 27 5 21 4 13c5 1 9 4 10.5 8M16 27c7 0 11-6 12-14-5 1-9 4-10.5 8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 32 32"><path d="M16 4l10 3.5v8c0 6-4 10.5-10 12.5-6-2-10-6.5-10-12.5v-8zM11.5 16l3.200 3.200 6-6.400" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a class="logo" href="index.html" aria-label="AZULA Natural Care — home">
+      <svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="logo__text">
+        <span class="logo__name">AZULA</span>
+        <span class="logo__sub">Natural Care</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__item nav__item--has-menu">
+          <a class="nav__link" href="shop.html">Shop <svg class="nav__chev" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+          <ul class="nav__menu">
+            <li><a href="shop.html#shampoo">Shampoo</a></li>
+            <li><a href="shop.html#conditioner">Conditioner</a></li>
+            <li><a href="shop.html">All Products</a></li>
+          </ul>
+        </li>
+        <li class="nav__item"><a class="nav__link" href="shop.html#ritual">Haircare</a></li>
+        <li class="nav__item"><a class="nav__link" href="philosophy.html">Our Philosophy</a></li>
+        <li class="nav__item"><a class="nav__link" href="ingredients.html">Ingredients</a></li>
+        <li class="nav__item"><a class="nav__link" href="magazine.html">Magazine</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="icon-btn" href="search.html" aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></a>
+      <a class="icon-btn icon-btn--account" href="account.html" aria-label="Account"><svg aria-hidden="true"><use href="#i-user"/></svg></a>
+      <a class="icon-btn icon-btn--cart" href="cart.html" aria-current="page" aria-label="Shopping bag, 0 items" id="cartBtn">
+        <svg aria-hidden="true"><use href="#i-cart"/></svg>
+        <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
+      </a>
+      <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">Shopping Bag</p>
+    <h1 class="page-hero__title load" style="--d:.2s">Your <em>Bag</em></h1>
+    
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container bag" id="bag">
+    <div class="bag__empty" id="bagEmpty" hidden>
+      <p class="manifesto">Your bag is still empty.</p>
+      <a class="btn btn--bronze" href="shop.html">Shop the Collection <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="bag__grid" id="bagFull" hidden>
+      <ul class="bag__list" id="bagList" aria-label="Items in your bag"></ul>
+      <aside class="bag__summary">
+        <p class="eyebrow">Summary</p>
+        <dl>
+          <div><dt>Subtotal</dt><dd id="bagSubtotal">€0.00</dd></div>
+          <div><dt>Shipping</dt><dd>Calculated at checkout</dd></div>
+          <div class="bag__total"><dt>Total</dt><dd id="bagTotal">€0.00</dd></div>
+        </dl>
+        <button class="btn btn--bronze" type="button" id="checkoutBtn">Checkout <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <a class="link-arrow" href="shop.html">Continue shopping <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </aside>
+    </div>
+    <noscript><p class="band__text">Please enable JavaScript to view your bag.</p></noscript>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="logo" href="index.html" aria-label="AZULA Natural Care — home">
+        <svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <span class="logo__text"><span class="logo__name">AZULA</span><span class="logo__sub">Natural Care</span></span>
+      </a>
+      <p>Premium natural haircare for stronger, healthier hair.</p>
+    </div>
+    <nav aria-label="Shop">
+      <h5>Shop</h5>
+      <a href="shop.html#shampoo">Shampoo</a><a href="shop.html#conditioner">Conditioner</a><a href="shop.html">All Products</a>
+    </nav>
+    <nav aria-label="About">
+      <h5>AZULA</h5>
+      <a href="philosophy.html">Our Philosophy</a><a href="ingredients.html">Ingredients</a><a href="magazine.html">Magazine</a>
+    </nav>
+    <nav aria-label="Service">
+      <h5>Service</h5>
+      <a href="#">Contact</a><a href="#">Shipping &amp; Returns</a><a href="#">FAQ</a>
+    </nav>
+  </div>
+  <div class="container footer__bottom">
+    <span>© <span id="year">2026</span> AZULA Natural Care</span>
+    <span class="footer__legal"><a href="#">Imprint</a><a href="#">Privacy</a><a href="#">Terms</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
