@@ -259,41 +259,121 @@
 </section>
 
 <!-- ============ REVIEWS ============ -->
-<section class="magazine reviews" id="reviews">
+<section class="magazine reviews" id="reviews" aria-label="Customer reviews">
   <div class="container">
     <div class="magazine__head reveal">
       <div>
         <p class="eyebrow eyebrow--line">Reviews</p>
         <h2 class="band__title band__title--lg">What our customers say</h2>
       </div>
-      <p class="reviews__summary"><strong>4.9</strong><span><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><small>Based on 739 reviews</small></span></p>
+      <div class="reviews__side">
+        <p class="reviews__summary"><strong>4.9</strong><span><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><small>Based on 739 reviews</small></span></p>
+        <div class="reviews__nav">
+          <button class="drawer__close reviews__btn reviews__btn--prev" type="button" id="reviewsPrev" aria-label="Previous reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button class="drawer__close reviews__btn" type="button" id="reviewsNext" aria-label="Next reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
     </div>
-    <div class="articles">
-      <figure class="review reveal">
+  </div>
+  <div class="reviews__viewport reveal" style="--d:.1s">
+    <ul class="reviews__track" id="reviewsTrack" tabindex="0" aria-label="Customer reviews, scroll sideways for more">
+      <li><figure class="review">
         <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
         <blockquote>
           <h3>My scalp finally feels calm.</h3>
           <p>After three weeks my hair feels stronger and so much lighter. The scent is subtle and natural – exactly what I was looking for.</p>
         </blockquote>
         <figcaption><span class="review__name">Laura M.</span><a href="shampoo.html">Shampoo</a></figcaption>
-      </figure>
-      <figure class="review reveal" style="--d:0.1s">
+      </figure></li>
+      <li><figure class="review">
         <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
         <blockquote>
           <h3>Soft without weighing it down.</h3>
           <p>I was sceptical about going silicone-free, but my lengths have never been this smooth. A little goes a long way.</p>
         </blockquote>
         <figcaption><span class="review__name">Sophie K.</span><a href="conditioner.html">Conditioner</a></figcaption>
-      </figure>
-      <figure class="review reveal" style="--d:0.2s">
+      </figure></li>
+      <li><figure class="review">
         <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
         <blockquote>
           <h3>The two really belong together.</h3>
           <p>Using both made the difference for me. More shine, less frizz, and the bottles look beautiful in the bathroom.</p>
         </blockquote>
         <figcaption><span class="review__name">Jonas R.</span><a href="duo.html">The Duo</a></figcaption>
-      </figure>
-    </div>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Gentle, but it really cleans.</h3>
+          <p>It lathers less than I was used to, yet my hair feels properly clean and stays fresh a day longer.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Mia T.</span><a href="shampoo.html">Shampoo</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>My curls love it.</h3>
+          <p>Easy to detangle, defined curls and no heavy film. I only need a small amount for my whole hair.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Elena P.</span><a href="conditioner.html">Conditioner</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Finally no more itching.</h3>
+          <p>My sensitive scalp reacts to almost everything. With this shampoo it has been calm from the first week.</p>
+        </blockquote>
+        <figcaption><span class="review__name">David H.</span><a href="shampoo.html">Shampoo</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>A ritual I look forward to.</h3>
+          <p>The scent, the texture, the result – washing my hair has become a small moment for myself.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Hannah B.</span><a href="duo.html">The Duo</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Shine without silicones.</h3>
+          <p>I did not think this was possible. My hair looks healthy and feels natural, not coated.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Clara W.</span><a href="conditioner.html">Conditioner</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Lasts longer than expected.</h3>
+          <p>Half a litre and you need very little. After two months the bottle is still more than half full.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Felix S.</span><a href="shampoo.html">Shampoo</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Bought it as a gift, kept it.</h3>
+          <p>It was meant for my sister. Now we both use it – and she got her own set.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Nina L.</span><a href="duo.html">The Duo</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Perfect for dry ends.</h3>
+          <p>I leave it in for three minutes and my ends feel soft again. No more straw-like tips in winter.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Marie F.</span><a href="conditioner.html">Conditioner</a></figcaption>
+      </figure></li>
+      <li><figure class="review">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>
+          <h3>Light, fresh, natural.</h3>
+          <p>The rosemary note is lovely and not perfumed. My hair has more volume at the roots.</p>
+        </blockquote>
+        <figcaption><span class="review__name">Tom A.</span><a href="shampoo.html">Shampoo</a></figcaption>
+      </figure></li>
+    </ul>
   </div>
 </section>
 

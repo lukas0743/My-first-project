@@ -356,6 +356,114 @@
     });
   }
 
+  /* ---------- Reviews carousel ---------- */
+  const track = $('#reviewsTrack');
+  if (track) {
+    const originals = [...track.children];
+    let period = 0; // width of one full set of reviews
+    const step = () => originals[1].offsetLeft - originals[0].offsetLeft;
+
+    if (!reducedMotion) {
+      // a second, hidden copy makes the row loop without a visible jump
+      originals.forEach((li) => {
+        const clone = li.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.inert = true;
+        track.append(clone);
+      });
+      const measure = () => { period = track.children[originals.length].offsetLeft - originals[0].offsetLeft; };
+      measure();
+      window.addEventListener('resize', measure);
+    }
+
+    const wrap = () => {
+      if (!period) return;
+      if (track.scrollLeft >= period) track.scrollLeft -= period;
+      else if (track.scrollLeft <= 0) track.scrollLeft += period;
+    };
+
+    // slow automatic drift, paused while someone is interacting
+    const SPEED = 28; // pixels per second
+    let pos = 0;
+    let last = 0;
+    let holds = new Set(['offscreen']);
+    let resumeTimer;
+    const tick = (now) => {
+      if (holds.size === 0) {
+        const dt = Math.min(now - last, 100);
+        pos += (SPEED * dt) / 1000;
+        if (pos >= period) pos -= period;
+        track.scrollLeft = pos;
+      } else {
+        pos = track.scrollLeft;
+      }
+      last = now;
+      requestAnimationFrame(tick);
+    };
+    const hold = (reason) => holds.add(reason);
+    const release = (reason) => holds.delete(reason);
+    const holdBriefly = () => {
+      hold('recent');
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => release('recent'), 3500);
+    };
+
+    if (period) {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) release('offscreen'); else hold('offscreen');
+      }).observe(track);
+      document.addEventListener('visibilitychange', () => (document.hidden ? hold('hidden') : release('hidden')));
+      track.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold('hover'); });
+      track.addEventListener('pointerleave', () => release('hover'));
+      // only keyboard focus pauses the row; a mouse click must not stop it for good
+      track.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) hold('focus'); });
+      track.addEventListener('focusout', () => release('focus'));
+      track.addEventListener('touchstart', () => hold('touch'), { passive: true });
+      track.addEventListener('touchend', () => { release('touch'); holdBriefly(); }, { passive: true });
+      track.addEventListener('wheel', holdBriefly, { passive: true });
+      track.addEventListener('scroll', () => { if (holds.size) wrap(); }, { passive: true });
+      requestAnimationFrame((now) => { last = now; tick(now); });
+    }
+
+    // drag with the mouse (touch swiping works natively)
+    let drag = null;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft, moved: false };
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) < 6) return;
+      drag.moved = true;
+      track.classList.add('is-dragging');
+      let left = drag.left - dx;
+      if (period) left = ((left % period) + period) % period;
+      track.scrollLeft = left;
+    });
+    window.addEventListener('pointerup', () => {
+      if (!drag) return;
+      const moved = drag.moved;
+      drag = null;
+      // keep the class for one tick so the click that ends a drag does not open a link
+      setTimeout(() => track.classList.remove('is-dragging'), 0);
+      if (moved) holdBriefly();
+    });
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+
+    const move = (dir) => {
+      holdBriefly();
+      wrap();
+      track.scrollBy({ left: dir * step(), behavior: reducedMotion ? 'auto' : 'smooth' });
+    };
+    $('#reviewsPrev').addEventListener('click', () => move(-1));
+    $('#reviewsNext').addEventListener('click', () => move(1));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); move(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1); }
+    });
+  }
+
   /* ---------- Newsletter (front-end only) ---------- */
   const form = $('#newsletterForm');
   const msg = $('#newsletterMsg');
