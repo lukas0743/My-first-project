@@ -71,9 +71,9 @@
   const cartCount = $('#cartCount');
   const toast = $('#toast');
   const CATALOG = {
-    'Shampoo': { price: 24.9, meta: '500 ml', bottles: ['shampoo'], href: 'shop.html#shampoo' },
-    'Conditioner': { price: 24.9, meta: '500 ml', bottles: ['conditioner'], href: 'shop.html#conditioner' },
-    'The Duo': { price: 44.9, meta: '2 × 500 ml', bottles: ['shampoo', 'conditioner'], href: 'shop.html#duo' },
+    'Shampoo': { price: 24.9, meta: '500 ml', bottles: ['shampoo'], href: 'shampoo.html' },
+    'Conditioner': { price: 24.9, meta: '500 ml', bottles: ['conditioner'], href: 'conditioner.html' },
+    'The Duo': { price: 44.9, meta: '2 × 500 ml', bottles: ['shampoo', 'conditioner'], href: 'duo.html' },
   };
   const euro = (n) => '€' + n.toFixed(2);
   const store = {
@@ -151,13 +151,23 @@
   $$('[data-add]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const name = btn.dataset.add;
-      bag[name] = (bag[name] || 0) + 1;
+      const qtyEl = 'useQty' in btn.dataset ? $('#pdpQty') : null;
+      const qty = qtyEl ? Number(qtyEl.textContent) : 1;
+      bag[name] = (bag[name] || 0) + qty;
       store.set(bag);
       renderCart();
       cartCount.classList.remove('bump');
       void cartCount.offsetWidth; // restart animation
       cartCount.classList.add('bump');
-      showToast(`${name} added to your bag`);
+      showToast(`${qty > 1 ? qty + ' × ' : ''}${name} added to your bag`);
+    });
+  });
+
+  /* ---------- Product page quantity ---------- */
+  const pdpQty = $('#pdpQty');
+  if (pdpQty) $$('[data-qty]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      pdpQty.textContent = Math.min(10, Math.max(1, Number(pdpQty.textContent) + Number(btn.dataset.qty)));
     });
   });
 
@@ -174,9 +184,9 @@
   const searchForm = $('#searchForm');
   if (searchForm) {
     const INDEX = [
-      ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shop.html#shampoo', 'rosemary aloe vera cleanse scalp'],
-      ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'shop.html#conditioner', 'argan oil coconut care shine'],
-      ['Product', 'The Duo', 'Shampoo & Conditioner set', 'shop.html#duo', 'set bundle'],
+      ['Product', 'Shampoo', 'Strengthen · Nourish · Balance', 'shampoo.html', 'rosemary aloe vera cleanse scalp'],
+      ['Product', 'Conditioner', 'Hydrate · Repair · Restore', 'conditioner.html', 'argan oil coconut care shine'],
+      ['Product', 'The Duo', 'Shampoo & Conditioner set', 'duo.html', 'set bundle'],
       ['Haircare', 'The AZULA Ritual', 'Cleanse, care, result – in three steps', 'shop.html#ritual', 'routine how to use'],
       ['Ingredient', 'Aloe Vera', 'Soothes & Moisturizes', 'ingredients.html', 'scalp moisture'],
       ['Ingredient', 'Rosemary', 'Stimulates Hair Growth', 'ingredients.html', 'growth root'],
