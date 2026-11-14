@@ -43,7 +43,7 @@
 
   /* ---------- Hero parallax (pointer devices only) ---------- */
   const hero = $('.hero');
-  if (!reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  if (hero && !reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const layers = [
       ['.scene__back', 6],
       ['.scene__mid', 10],
@@ -70,7 +70,11 @@
   const cartBtn = $('#cartBtn');
   const cartCount = $('#cartCount');
   const toast = $('#toast');
-  let count = 0;
+  const store = {
+    get() { try { return parseInt(localStorage.getItem('azula-cart'), 10) || 0; } catch { return 0; } },
+    set(n) { try { localStorage.setItem('azula-cart', n); } catch { /* storage unavailable */ } },
+  };
+  let count = store.get();
   let toastTimer;
 
   const showToast = (message) => {
@@ -80,28 +84,50 @@
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
   };
 
-  $$('.product__add').forEach((btn) => {
+  const renderCart = () => {
+    cartCount.textContent = count;
+    cartBtn.setAttribute('aria-label', `Shopping bag, ${count} item${count === 1 ? '' : 's'}`);
+  };
+  renderCart();
+
+  $$('[data-add]').forEach((btn) => {
     btn.addEventListener('click', () => {
       count += 1;
-      cartCount.textContent = count;
-      cartBtn.setAttribute('aria-label', `Shopping bag, ${count} item${count === 1 ? '' : 's'}`);
+      store.set(count);
+      renderCart();
       cartCount.classList.remove('bump');
       void cartCount.offsetWidth; // restart animation
       cartCount.classList.add('bump');
-      showToast(`${btn.closest('.product').dataset.product} added to your bag`);
+      showToast(`${btn.dataset.add} added to your bag`);
     });
   });
 
   /* ---------- Newsletter (front-end only) ---------- */
   const form = $('#newsletterForm');
   const msg = $('#newsletterMsg');
-  form.addEventListener('submit', (e) => {
+  if (form) form.addEventListener('submit', (e) => {
     e.preventDefault();
     const input = form.elements.email;
     const valid = input.value.trim() !== '' && input.checkValidity();
     msg.classList.toggle('is-error', !valid);
     msg.textContent = valid ? 'Thank you – welcome to the world of AZULA.' : 'Please enter a valid email address.';
     if (valid) form.reset(); else input.focus();
+  });
+
+  /* ---------- Magazine filter ---------- */
+  const chips = $$('.chip');
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => {
+        c.classList.toggle('is-active', c === chip);
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
+      const filter = chip.dataset.filter;
+      $$('#articles .article').forEach((a) => {
+        a.hidden = filter !== 'all' && a.dataset.cat !== filter;
+        a.classList.add('is-in');
+      });
+    });
   });
 
   $('#year').textContent = new Date().getFullYear();
