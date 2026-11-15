@@ -383,45 +383,43 @@
       else if (track.scrollLeft <= 0) track.scrollLeft += period;
     };
 
-    // slow automatic drift, paused while someone is interacting
+    // Slow automatic drift. Any interaction pauses it; it always starts again
+    // RESUME_AFTER milliseconds after the last interaction.
     const SPEED = 28; // pixels per second
+    const RESUME_AFTER = 3000;
+    const PRESS_TIMEOUT = 8000; // safety net if a "finger lifted" event never arrives
     let pos = 0;
     let last = 0;
-    let holds = new Set(['offscreen']);
-    let resumeTimer;
+    let visible = false;
+    let pausedUntil = 0;
+    let pressedAt = 0; // > 0 while a finger or the mouse button is down on the row
+    const touched = () => { pausedUntil = performance.now() + RESUME_AFTER; };
+    const press = () => { pressedAt = performance.now(); touched(); };
+    const lift = () => { pressedAt = 0; touched(); };
     const tick = (now) => {
-      if (holds.size === 0) {
+      const pressing = pressedAt && now - pressedAt < PRESS_TIMEOUT;
+      if (visible && !document.hidden && !pressing && now >= pausedUntil) {
         const dt = Math.min(now - last, 100);
         pos += (SPEED * dt) / 1000;
         if (pos >= period) pos -= period;
         track.scrollLeft = pos;
       } else {
-        pos = track.scrollLeft;
+        wrap();
+        pos = track.scrollLeft; // carry on from wherever the visitor left the row
       }
       last = now;
       requestAnimationFrame(tick);
     };
-    const hold = (reason) => holds.add(reason);
-    const release = (reason) => holds.delete(reason);
-    const holdBriefly = () => {
-      hold('recent');
-      clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => release('recent'), 3500);
-    };
 
     if (period) {
-      new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) release('offscreen'); else hold('offscreen');
-      }).observe(track);
-      document.addEventListener('visibilitychange', () => (document.hidden ? hold('hidden') : release('hidden')));
-      // only keyboard focus pauses the row; a mouse click must not stop it for good
-      track.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) hold('focus'); });
-      track.addEventListener('focusout', () => release('focus'));
-      track.addEventListener('touchstart', () => hold('touch'), { passive: true });
-      track.addEventListener('touchend', () => { release('touch'); holdBriefly(); }, { passive: true });
+      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(track);
+      track.addEventListener('touchstart', press, { passive: true });
+      track.addEventListener('touchmove', press, { passive: true });
+      track.addEventListener('touchend', lift, { passive: true });
+      track.addEventListener('touchcancel', lift, { passive: true });
       // only sideways scrolling pauses the row, not scrolling down the page across it
-      track.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) holdBriefly(); }, { passive: true });
-      track.addEventListener('scroll', () => { if (holds.size) wrap(); }, { passive: true });
+      track.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) touched(); }, { passive: true });
+      track.addEventListener('keydown', touched);
       requestAnimationFrame((now) => { last = now; tick(now); });
     }
 
@@ -430,10 +428,11 @@
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
       drag = { x: e.clientX, left: track.scrollLeft, moved: false };
-      hold('drag');
+      press();
     });
     window.addEventListener('pointermove', (e) => {
       if (!drag) return;
+      press();
       const dx = e.clientX - drag.x;
       if (!drag.moved && Math.abs(dx) < 6) return;
       drag.moved = true;
@@ -442,19 +441,20 @@
       if (period) left = ((left % period) + period) % period;
       track.scrollLeft = left;
     });
-    window.addEventListener('pointerup', () => {
+    const endDrag = () => {
       if (!drag) return;
-      const moved = drag.moved;
       drag = null;
-      release('drag');
+      lift();
       // keep the class for one tick so the click that ends a drag does not open a link
       setTimeout(() => track.classList.remove('is-dragging'), 0);
-      if (moved) holdBriefly();
-    });
+    };
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+    window.addEventListener('blur', endDrag);
     track.addEventListener('dragstart', (e) => e.preventDefault());
 
     const move = (dir) => {
-      holdBriefly();
+      touched();
       wrap();
       track.scrollBy({ left: dir * step(), behavior: reducedMotion ? 'auto' : 'smooth' });
     };
