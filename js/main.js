@@ -386,8 +386,8 @@
     // Slow automatic drift. Any interaction pauses it; it always starts again
     // RESUME_AFTER milliseconds after the last interaction.
     const SPEED = 28; // pixels per second
-    const RESUME_AFTER = 3000;
-    const PRESS_TIMEOUT = 8000; // safety net if a "finger lifted" event never arrives
+    const RESUME_AFTER = 7000;
+    const PRESS_TIMEOUT = 15000; // safety net if a "finger lifted" event never arrives
     let pos = 0;
     let last = 0;
     let visible = false;
