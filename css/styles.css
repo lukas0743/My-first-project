@@ -378,16 +378,17 @@ svg { display: block; }
 .reviews__side { display: flex; align-items: center; gap: clamp(1.125rem, 3vw, 2.75rem); flex-wrap: wrap; }
 .reviews__stage { position: relative; margin-top: 2.75rem; }
 .reviews__stage .reviews__btn {
-  position: absolute; top: 50%; z-index: 2; width: 3rem; height: 3rem; margin-top: -1.5rem;
-  left: max(0.5rem, calc(var(--pad) / 2 - 1.5rem));
-  background: rgba(13, 12, 11, .92); border-color: var(--line); color: var(--bronze-light);
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, .5);
+  position: absolute; top: 50%; z-index: 2; width: 3.5rem; height: 3.5rem; margin-top: -1.75rem;
+  left: max(0.5rem, calc(var(--pad) / 2 - 1.75rem));
+  background: var(--bronze-gradient); border: 0; color: var(--black);
+  box-shadow: 0 0.5rem 1.75rem rgba(0, 0, 0, .65), 0 0 0 0.375rem rgba(10, 10, 10, .55);
 }
-.reviews__stage .reviews__btn ~ .reviews__btn { left: auto; right: max(0.5rem, calc(var(--pad) / 2 - 1.5rem)); }
-.reviews__stage .reviews__btn svg { transform: none; width: 1.25rem; height: 1.25rem; }
+.reviews__stage .reviews__btn ~ .reviews__btn { left: auto; right: max(0.5rem, calc(var(--pad) / 2 - 1.75rem)); }
+.reviews__stage .reviews__btn svg { transform: none; width: 1.5rem; height: 1.5rem; }
 .reviews__stage .reviews__btn--prev svg { transform: scaleX(-1); }
+.reviews__stage .reviews__btn:hover { transform: none; color: var(--black); }
 @media (hover: hover) {
-  .reviews__stage .reviews__btn:hover { transform: scale(1.08); background: var(--bronze-gradient); color: var(--black); border-color: transparent; }
+  .reviews__stage .reviews__btn:hover { transform: scale(1.1); }
 }
 .reviews__viewport {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--pad), #000 calc(100% - var(--pad)), transparent);
