@@ -368,7 +368,8 @@
       originals.forEach((li) => {
         const clone = li.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
-        clone.inert = true;
+        // not `inert`: inert cards ignore the mouse, which broke dragging and links
+        clone.querySelectorAll('a').forEach((link) => { link.tabIndex = -1; });
         track.append(clone);
       });
       const measure = () => { period = track.children[originals.length].offsetLeft - originals[0].offsetLeft; };
@@ -413,14 +414,13 @@
         if (entry.isIntersecting) release('offscreen'); else hold('offscreen');
       }).observe(track);
       document.addEventListener('visibilitychange', () => (document.hidden ? hold('hidden') : release('hidden')));
-      track.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold('hover'); });
-      track.addEventListener('pointerleave', () => release('hover'));
       // only keyboard focus pauses the row; a mouse click must not stop it for good
       track.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) hold('focus'); });
       track.addEventListener('focusout', () => release('focus'));
       track.addEventListener('touchstart', () => hold('touch'), { passive: true });
       track.addEventListener('touchend', () => { release('touch'); holdBriefly(); }, { passive: true });
-      track.addEventListener('wheel', holdBriefly, { passive: true });
+      // only sideways scrolling pauses the row, not scrolling down the page across it
+      track.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) holdBriefly(); }, { passive: true });
       track.addEventListener('scroll', () => { if (holds.size) wrap(); }, { passive: true });
       requestAnimationFrame((now) => { last = now; tick(now); });
     }
@@ -430,6 +430,7 @@
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
       drag = { x: e.clientX, left: track.scrollLeft, moved: false };
+      hold('drag');
     });
     window.addEventListener('pointermove', (e) => {
       if (!drag) return;
@@ -445,6 +446,7 @@
       if (!drag) return;
       const moved = drag.moved;
       drag = null;
+      release('drag');
       // keep the class for one tick so the click that ends a drag does not open a link
       setTimeout(() => track.classList.remove('is-dragging'), 0);
       if (moved) holdBriefly();
