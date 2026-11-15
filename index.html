@@ -268,14 +268,13 @@
       </div>
       <div class="reviews__side">
         <p class="reviews__summary"><strong>4.9</strong><span><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><small>Based on 739 reviews</small></span></p>
-        <div class="reviews__nav">
-          <button class="drawer__close reviews__btn reviews__btn--prev" type="button" id="reviewsPrev" aria-label="Previous reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button class="drawer__close reviews__btn" type="button" id="reviewsNext" aria-label="Next reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        </div>
       </div>
     </div>
   </div>
-  <div class="reviews__viewport reveal" style="--d:.1s">
+  <div class="reviews__stage reveal" style="--d:.1s">
+  <button class="drawer__close reviews__btn reviews__btn--prev" type="button" id="reviewsPrev" aria-label="Previous reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  <button class="drawer__close reviews__btn" type="button" id="reviewsNext" aria-label="Next reviews"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  <div class="reviews__viewport">
     <ul class="reviews__track" id="reviewsTrack" tabindex="0" aria-label="Customer reviews, scroll sideways for more">
       <li><figure class="review">
         <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
@@ -374,6 +373,7 @@
         <figcaption><span class="review__name">Tom A.</span><a href="shampoo.html">Shampoo</a></figcaption>
       </figure></li>
     </ul>
+  </div>
   </div>
 </section>
 
