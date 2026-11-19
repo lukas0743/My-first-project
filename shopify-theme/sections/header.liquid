@@ -1,0 +1,66 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<header class="header" id="header">
+  <div class="container header__inner">
+    {% render 'logo' %}
+
+    <nav class="nav" id="nav" aria-label="{{ 'header.main_nav' | t }}">
+      <ul class="nav__list">
+        {%- for link in menu.links -%}
+          {%- liquid
+            assign is_current = false
+            if link.current or link.child_current
+              assign is_current = true
+            elsif request.page_type == 'product' and link.url == routes.all_products_collection_url
+              assign is_current = true
+            endif
+          -%}
+          {%- if link.links != blank -%}
+            <li class="nav__item nav__item--has-menu">
+              <a class="nav__link" href="{{ link.url }}"{% if is_current %} aria-current="page"{% endif %}>{{ link.title | escape }} <svg class="nav__chev" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+              <ul class="nav__menu">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </li>
+          {%- else -%}
+            <li class="nav__item"><a class="nav__link" href="{{ link.url }}"{% if is_current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="icon-btn" href="{{ routes.search_url }}" id="searchBtn" aria-label="{{ 'search.title' | t }}"{% if request.page_type == 'search' %} aria-current="page"{% endif %}><svg aria-hidden="true"><use href="#i-search"/></svg></a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn icon-btn--account" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'header.account' | t }}"{% if request.page_type contains 'customers/' %} aria-current="page"{% endif %}><svg aria-hidden="true"><use href="#i-user"/></svg></a>
+      {%- endif -%}
+      <a class="icon-btn icon-btn--cart" href="{{ routes.cart_url }}" id="cartBtn" aria-label="{{ 'cart.icon_label' | t: count: cart.item_count }}"{% if request.page_type == 'cart' %} aria-current="page"{% endif %}>
+        <svg aria-hidden="true"><use href="#i-cart"/></svg>
+        <span class="cart-count" id="cartCount" aria-hidden="true">{{ cart.item_count }}</span>
+      </a>
+      <button class="burger" type="button" id="burger" aria-label="{{ 'header.open_menu' | t }}" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Items with sub-items open a dropdown, like \"Shop\"."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'customer.eyebrow' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ 'customer.activate.title' | t }}</h1>
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container">
+    {%- form 'activate_customer_password', class: 'auth' -%}
+      <p class="auth__alt">{{ 'customer.activate.text' | t }}</p>
+      {%- if form.errors %}<div class="auth__msg is-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+      <label for="ActivatePassword">{{ 'customer.password' | t }}</label>
+      <input type="password" id="ActivatePassword" name="customer[password]" autocomplete="new-password" required>
+      <label for="ActivatePasswordConfirm">{{ 'customer.password_confirm' | t }}</label>
+      <input type="password" id="ActivatePasswordConfirm" name="customer[password_confirmation]" autocomplete="new-password" required>
+      <button class="btn btn--bronze" type="submit">{{ 'customer.activate.submit' | t }}</button>
+      <button class="btn btn--ghost" type="submit" name="decline">{{ 'customer.activate.decline' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Activate account",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

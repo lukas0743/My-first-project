@@ -1,0 +1,17 @@
+<section class="section{% if section.settings.flush %} section--flush{% endif %}">
+  <div class="container article-body">
+    <div class="rte reveal">{{ section.settings.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "tag": "div",
+  "settings": [
+    { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Share the story behind your products.</p>" },
+    { "type": "checkbox", "id": "flush", "label": "Less space above", "default": false }
+  ],
+  "presets": [ { "name": "Rich text" } ]
+}
+{% endschema %}

@@ -1,0 +1,52 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ section.settings.eyebrow | escape }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ section.settings.title | escape }} <em>{{ section.settings.title_accent | escape }}</em></h1>
+  </div>
+</section>
+
+<section class="section section--flush" data-cart-page data-section-id="{{ section.id }}">
+  <div class="container bag">
+    {%- if cart.item_count == 0 -%}
+      <div class="bag__empty">
+        <p class="manifesto">{{ 'cart.empty' | t }}</p>
+        <a class="btn btn--bronze" href="{{ routes.all_products_collection_url }}">{{ 'cart.shop_collection' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    {%- else -%}
+      <div class="bag__grid">
+        {% render 'cart-items' %}
+        <aside class="bag__summary">
+          <p class="eyebrow">{{ 'cart.summary' | t }}</p>
+          <dl>
+            <div><dt>{{ 'cart.subtotal' | t }}</dt><dd>{{ cart.items_subtotal_price | money }}</dd></div>
+            {% render 'cart-summary-lines' %}
+            <div><dt>{{ 'cart.shipping' | t }}</dt><dd>{{ 'cart.shipping_calculated' | t }}</dd></div>
+            <div class="bag__total"><dt>{{ 'cart.total' | t }}</dt><dd>{{ cart.total_price | money_with_currency }}</dd></div>
+          </dl>
+          <p class="drawer__note">{% render 'tax-note' %}</p>
+          <form action="{{ routes.cart_url }}" method="post" class="bag__checkout">
+            {%- if section.settings.show_note -%}
+              <label class="bag__note-label" for="CartNote">{{ 'cart.note' | t }}</label>
+              <textarea class="bag__note" id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
+            {%- endif -%}
+            <button class="btn btn--bronze" type="submit" name="checkout">{{ 'cart.checkout' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </form>
+          <a class="link-arrow" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </aside>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bag",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Shopping Bag" },
+    { "type": "text", "id": "title", "label": "Headline", "default": "Your" },
+    { "type": "text", "id": "title_accent", "label": "Headline accent", "default": "Bag" },
+    { "type": "checkbox", "id": "show_note", "label": "Allow an order note", "default": false }
+  ]
+}
+{% endschema %}

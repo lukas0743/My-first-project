@@ -1,0 +1,34 @@
+{
+  "current": {
+    "logo_text": "AZULA",
+    "logo_subtext": "Natural Care",
+    "color_background": "#0A0A0A",
+    "color_text": "#F5EDE2",
+    "color_accent": "#C9925E",
+    "color_accent_light": "#E3AE7E",
+    "color_muted": "#8B7A6B",
+    "color_forest": "#2E3D2E",
+    "gradient_start": "#EDBE92",
+    "gradient_middle": "#D9A06B",
+    "gradient_end": "#B97F4B",
+    "cart_type": "drawer",
+    "bundle_tag": "bundle"
+  },
+  "presets": {
+    "Default": {
+      "logo_text": "AZULA",
+      "logo_subtext": "Natural Care",
+      "color_background": "#0A0A0A",
+      "color_text": "#F5EDE2",
+      "color_accent": "#C9925E",
+      "color_accent_light": "#E3AE7E",
+      "color_muted": "#8B7A6B",
+      "color_forest": "#2E3D2E",
+      "gradient_start": "#EDBE92",
+      "gradient_middle": "#D9A06B",
+      "gradient_end": "#B97F4B",
+      "cart_type": "drawer",
+      "bundle_tag": "bundle"
+    }
+  }
+}

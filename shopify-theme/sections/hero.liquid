@@ -1,0 +1,86 @@
+<section class="hero" id="top">
+  <div class="hero__scene" id="scene">
+    <div class="hero__glow"></div>
+    <div class="hero__shots">
+      {%- render 'shot', image: section.settings.image_1, fallback: 'shampoo.jpg', alt: section.settings.image_1_alt, priority: true, sizes: '(min-width: 1025px) 32vw, 50vw' -%}
+      {%- if section.settings.image_2 != blank or section.settings.use_second_photo -%}
+        {%- render 'shot', image: section.settings.image_2, fallback: 'conditioner.jpg', alt: section.settings.image_2_alt, priority: true, sizes: '(min-width: 1025px) 32vw, 50vw' -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="container hero__content">
+    {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line load" style="--d:.1s">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1 class="hero__title">
+      {%- if section.settings.title_line_1 != blank %}<span class="load" style="--d:.2s">{{ section.settings.title_line_1 | escape }}</span>{% endif -%}
+      {%- if section.settings.title_line_2 != blank %}<span class="load" style="--d:.3s">{{ section.settings.title_line_2 | escape }}</span>{% endif -%}
+      {%- if section.settings.title_accent != blank %}<span class="load hero__title-accent" style="--d:.4s"><em>{{ section.settings.title_accent | escape }}</em></span>{% endif -%}
+    </h1>
+    {%- if section.settings.text != blank %}<p class="hero__lead load" style="--d:.55s">{{ section.settings.text | escape }}</p>{% endif %}
+    <div class="hero__cta load" style="--d:.7s">
+      {%- if section.settings.button_1_label != blank -%}
+        <a class="btn btn--bronze" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label | escape }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      {%- endif -%}
+      {%- if section.settings.button_2_label != blank -%}
+        <a class="btn btn--ghost" href="{{ section.settings.button_2_link | default: routes.root_url }}"><svg class="btn__play" aria-hidden="true"><use href="#i-play"/></svg> {{ section.settings.button_2_label | escape }}</a>
+      {%- endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <ul class="trust load" style="--d:.85s">
+        {%- for block in section.blocks -%}
+          {%- render 'trust-item', icon: block.settings.icon, label: block.settings.label, block: block -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Photos" },
+    { "type": "image_picker", "id": "image_1", "label": "First photo", "info": "Portrait, 4:5. Without a photo the original AZULA shampoo photo is shown." },
+    { "type": "text", "id": "image_1_alt", "label": "Alt text of the original first photo", "default": "AZULA Shampoo, 500 ml bottle" },
+    { "type": "image_picker", "id": "image_2", "label": "Second photo", "info": "Without a photo the original AZULA conditioner photo is shown." },
+    { "type": "text", "id": "image_2_alt", "label": "Alt text of the original second photo", "default": "AZULA Conditioner, 500 ml bottle" },
+    { "type": "checkbox", "id": "use_second_photo", "label": "Show a second photo", "default": true },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Premium Natural Haircare" },
+    { "type": "text", "id": "title_line_1", "label": "Headline line 1", "default": "Natural Care" },
+    { "type": "text", "id": "title_line_2", "label": "Headline line 2", "default": "For Stronger," },
+    { "type": "text", "id": "title_accent", "label": "Headline line 3 (bronze, italic)", "default": "Healthier Hair" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "High-quality, natural hair care – developed for strength, vitality and a healthy scalp. For hair that feels as good as it looks." },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_1_label", "label": "First button label", "default": "Shop Now" },
+    { "type": "url", "id": "button_1_link", "label": "First button link", "default": "/collections/all" },
+    { "type": "text", "id": "button_2_label", "label": "Second button label", "default": "Our Philosophy" },
+    { "type": "url", "id": "button_2_link", "label": "Second button link" }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
+          { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" },
+          { "value": "lotus", "label": "Lotus" }, { "value": "shield", "label": "Shield" } ] },
+        { "type": "textarea", "id": "label", "label": "Label", "default": "100% Natural\nIngredients", "info": "Use a line break to split the label over two lines." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "leaf", "label": "100% Natural\nIngredients" } },
+        { "type": "badge", "settings": { "icon": "flask", "label": "Silicone\nFree" } },
+        { "type": "badge", "settings": { "icon": "lotus", "label": "Vegan" } },
+        { "type": "badge", "settings": { "icon": "shield", "label": "Dermatologically\nTested" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

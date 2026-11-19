@@ -1,0 +1,37 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "eyebrow": "Magazine",
+        "title": "Rituals &",
+        "title_accent": "Knowledge",
+        "text": "Stories, routines and ingredient know-how – for hair that feels as good as it looks.",
+        "show_featured": true,
+        "show_filter": true,
+        "per_page": 12
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the world of AZULA",
+        "text": "Care rituals, new arrivals and private offers – a few times a year.",
+        "button": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter"
+  ]
+}

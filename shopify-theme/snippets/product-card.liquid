@@ -1,0 +1,45 @@
+{%- comment -%}
+  Large product card (shop page, "You may also like"). Same markup as the static site's .pcard.
+  Accepts: product, delay (animation delay in seconds), heading_tag ('h2' | 'h3')
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign tag = heading_tag | default: 'h2'
+  assign tagline = product.metafields.custom.tagline.value
+  assign summary = product.metafields.custom.short_description.value
+  if summary == blank
+    assign summary = product.description | strip_html | truncatewords: 24
+  endif
+  assign on_sale = false
+  if variant.compare_at_price > variant.price
+    assign on_sale = true
+    assign saving = variant.compare_at_price | minus: variant.price | money
+  endif
+-%}
+<article class="pcard reveal" id="{{ product.handle }}" style="--d:{{ delay | default: 0 }}s">
+  <div class="pcard__media">
+    {%- render 'product-media', product: product, sizes: '(min-width: 1101px) 30vw, (min-width: 621px) 50vw, 100vw' -%}
+  </div>
+  <div class="pcard__body">
+    {%- capture size_label %}{% render 'product-size', product: product %}{% endcapture -%}
+    {%- if size_label != blank %}<p class="pcard__meta">{{ size_label }}</p>{% endif %}
+    <{{ tag }} class="pcard__name"><a class="pcard__link" href="{{ product.url }}">{{ product.title | escape }}</a></{{ tag }}>
+    {%- if tagline != blank %}<p class="pcard__tag">{{ tagline }}</p>{% endif %}
+    {%- if summary != blank %}<p class="pcard__text">{{ summary }}</p>{% endif %}
+    {%- if on_sale -%}
+      <p class="product__rating"><span class="pcard__badge">{{ 'products.save_amount' | t: amount: saving }}</span></p>
+    {%- else -%}
+      {%- render 'stars', product: product -%}
+    {%- endif -%}
+    <div class="pcard__foot">
+      <span class="pcard__price">{% render 'price', product: product, show_from: true %}</span>
+      {%- if product.has_only_default_variant -%}
+        <button class="btn btn--bronze btn--sm" type="button" data-add-variant="{{ variant.id }}" data-title="{{ product.title | escape }}"{% unless variant.available %} disabled{% endunless %}>
+          {%- if variant.available %}{{ 'products.add_to_cart' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif -%}
+        </button>
+      {%- else -%}
+        <a class="btn btn--bronze btn--sm" href="{{ product.url }}">{{ 'products.choose_options' | t }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

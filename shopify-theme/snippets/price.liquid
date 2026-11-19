@@ -1,0 +1,12 @@
+{%- comment -%}
+  Price of a variant, with the compare-at price struck through when the variant is on sale.
+  Accepts: product, variant (optional), show_from (true for cards: "From €x" when prices differ)
+{%- endcomment -%}
+{%- assign current = variant | default: product.selected_or_first_available_variant -%}
+{%- if show_from and product.price_varies -%}
+  {%- assign min_price = product.price_min | money -%}
+  {{ 'products.from_price' | t: price: min_price }}
+{%- else -%}
+  {{ current.price | money }}
+  {%- if current.compare_at_price > current.price %} <s class="price__compare"><span class="sr-only">{{ 'products.regular_price' | t }}</span>{{ current.compare_at_price | money }}</s>{% endif -%}
+{%- endif -%}

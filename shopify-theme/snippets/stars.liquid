@@ -1,0 +1,22 @@
+{%- comment -%}
+  Star rating of a product, taken from Shopify's standard review metafields
+  (reviews.rating / reviews.rating_count), which review apps such as Judge.me or Shopify Product Reviews fill in.
+  Nothing is shown for products without ratings.
+{%- endcomment -%}
+{%- assign rating = product.metafields.reviews.rating.value -%}
+{%- if rating != blank -%}
+  {%- liquid
+    assign filled = rating.rating | round
+    assign max = rating.scale_max | round
+    assign count = product.metafields.reviews.rating_count.value
+    assign rating_value = rating.rating | round: 1
+  -%}
+  <p class="product__rating">
+    <span class="stars" role="img" aria-label="{{ 'products.rating' | t: rating: rating_value, max: max }}">
+      {%- for i in (1..max) -%}
+        {%- if i <= filled -%}★{%- else -%}<span class="stars__off">★</span>{%- endif -%}
+      {%- endfor -%}
+    </span>
+    {%- if count != blank %} <span class="product__reviews">({{ count }})</span>{% endif -%}
+  </p>
+{%- endif -%}

@@ -1,0 +1,14 @@
+{%- comment -%} Brand logo: uploaded logo image if set, otherwise the original AZULA mark + wordmark. {%- endcomment -%}
+<a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} — {{ 'general.home' | t }}">
+  {%- if settings.logo != blank -%}
+    {{ settings.logo | image_url: width: 600 | image_tag: class: 'logo__image', alt: shop.name, widths: '200, 400, 600', sizes: '15rem' }}
+  {%- else -%}
+    <svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+    <span class="logo__text">
+      <span class="logo__name">{{ settings.logo_text | default: shop.name }}</span>
+      {%- if settings.logo_subtext != blank -%}
+        <span class="logo__sub">{{ settings.logo_subtext }}</span>
+      {%- endif -%}
+    </span>
+  {%- endif -%}
+</a>

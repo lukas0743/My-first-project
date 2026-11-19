@@ -1,0 +1,128 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Our Natural Ingredients",
+        "title": "The Power",
+        "title_accent": "of Nature",
+        "text": "<p>Carefully selected, high-quality plant extracts for visible and long-lasting healthy hair.</p>"
+      }
+    },
+    "ingredients": {
+      "type": "ingredient-rows",
+      "settings": {},
+      "blocks": {
+        "ingredient_1": {
+          "type": "ingredient",
+          "settings": {
+            "art": "aloe",
+            "benefit": "Soothes & Moisturizes",
+            "name": "Aloe Vera",
+            "text": "The gel of the aloe leaf has been used for skin and scalp for centuries. It calms, cools and binds moisture – the foundation for a balanced scalp."
+          }
+        },
+        "ingredient_2": {
+          "type": "ingredient",
+          "settings": {
+            "art": "rosemary",
+            "benefit": "Stimulates Hair Growth",
+            "name": "Rosemary",
+            "text": "An aromatic classic of the Mediterranean. Rosemary invigorates the scalp and supports strong, vital hair right from the root."
+          }
+        },
+        "ingredient_3": {
+          "type": "ingredient",
+          "settings": {
+            "art": "argan",
+            "benefit": "Nourishes & Adds Shine",
+            "name": "Argan Oil",
+            "text": "Pressed from the kernels of the argan tree, this precious oil nourishes dry lengths and gives hair a soft, natural shine without weighing it down."
+          }
+        },
+        "ingredient_4": {
+          "type": "ingredient",
+          "settings": {
+            "art": "coconut",
+            "benefit": "Strengthens & Repairs",
+            "name": "Coconut",
+            "text": "Coconut cares deeply for stressed hair, helps strengthen its structure and leaves it supple and smooth to the touch."
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_1",
+        "ingredient_2",
+        "ingredient_3",
+        "ingredient_4"
+      ]
+    },
+    "facts": {
+      "type": "facts",
+      "settings": {
+        "eyebrow": "What we leave out",
+        "heading": "Just as important"
+      },
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "value": "0",
+            "label": "Silicones"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "value": "0",
+            "label": "Animal ingredients"
+          }
+        },
+        "fact_3": {
+          "type": "fact",
+          "settings": {
+            "value": "100%",
+            "label": "Natural ingredients"
+          }
+        },
+        "fact_4": {
+          "type": "fact",
+          "settings": {
+            "value": "Tested",
+            "label": "Dermatologically"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4"
+      ]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "Feel the difference",
+        "text": "All four botanicals, in two essentials.",
+        "button_label": "Shop the Collection",
+        "button_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "ingredients",
+    "facts",
+    "cta"
+  ]
+}

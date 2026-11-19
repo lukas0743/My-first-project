@@ -1,0 +1,47 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'customer.eyebrow' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ 'customer.addresses.title' | t }}</h1>
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container account">
+    <div class="account__orders">
+      <ul class="address-list">
+        {%- for address in customer.addresses -%}
+          <li class="bag__summary">
+            {%- if address == customer.default_address %}<p class="eyebrow">{{ 'customer.addresses.default' | t }}</p>{% endif %}
+            {{ address | format_address }}
+            <details class="address-edit">
+              <summary class="link-arrow">{{ 'customer.addresses.edit' | t }}</summary>
+              {%- form 'customer_address', address, class: 'auth auth--wide' -%}
+                {%- render 'address-fields', form: form, id: address.id -%}
+                <button class="btn btn--bronze" type="submit">{{ 'customer.addresses.save' | t }}</button>
+              {%- endform -%}
+            </details>
+            <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" class="address-delete">
+              <input type="hidden" name="_method" value="delete">
+              <button class="bag__remove" type="submit">{{ 'customer.addresses.delete' | t }}</button>
+            </form>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <aside>
+      {%- form 'customer_address', customer.new_address, class: 'auth auth--wide' -%}
+        <p class="eyebrow">{{ 'customer.addresses.add' | t }}</p>
+        {%- render 'address-fields', form: form, id: 'new' -%}
+        <button class="btn btn--bronze" type="submit">{{ 'customer.addresses.add' | t }}</button>
+      {%- endform -%}
+      <p class="auth__alt"><a class="link-arrow" href="{{ routes.account_url }}"><svg class="pagination__prev" aria-hidden="true"><use href="#i-arrow"/></svg> {{ 'customer.account.back' | t }}</a></p>
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer addresses",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

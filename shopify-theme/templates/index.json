@@ -1,0 +1,326 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Premium Natural Haircare",
+        "title_line_1": "Natural Care",
+        "title_line_2": "For Stronger,",
+        "title_accent": "Healthier Hair",
+        "text": "High-quality, natural hair care – developed for strength, vitality and a healthy scalp. For hair that feels as good as it looks.",
+        "button_1_label": "Shop Now",
+        "button_1_link": "shopify://collections/all",
+        "button_2_label": "Our Philosophy",
+        "button_2_link": "shopify://pages/philosophy",
+        "use_second_photo": true
+      },
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "100% Natural\nIngredients"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "flask",
+            "label": "Silicone\nFree"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "lotus",
+            "label": "Vegan"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "label": "Dermatologically\nTested"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ]
+    },
+    "band": {
+      "type": "home-band",
+      "settings": {
+        "products_heading": "Our Bestsellers",
+        "products_count": 2,
+        "ingredients_heading": "Our Natural Ingredients",
+        "ingredients_title": "The Power of Nature",
+        "ingredients_text": "Carefully selected, high-quality plant extracts for visible and long-lasting healthy hair.",
+        "philosophy_heading": "Our Philosophy",
+        "philosophy_title": "Natural Care.\nReal Results.",
+        "philosophy_text": "AZULA stands for modern, natural hair care – combining effective formulas with the pure power of nature. For healthier, stronger and more radiant hair.",
+        "philosophy_button": "Discover AZULA",
+        "philosophy_link": "shopify://pages/philosophy"
+      },
+      "blocks": {
+        "ingredient_1": {
+          "type": "ingredient",
+          "settings": {
+            "art": "aloe",
+            "name": "Aloe Vera",
+            "benefit": "Soothes & Moisturizes"
+          }
+        },
+        "ingredient_2": {
+          "type": "ingredient",
+          "settings": {
+            "art": "rosemary",
+            "name": "Rosemary",
+            "benefit": "Stimulates Hair Growth"
+          }
+        },
+        "ingredient_3": {
+          "type": "ingredient",
+          "settings": {
+            "art": "argan",
+            "name": "Argan Oil",
+            "benefit": "Nourishes & Adds Shine"
+          }
+        },
+        "ingredient_4": {
+          "type": "ingredient",
+          "settings": {
+            "art": "coconut",
+            "name": "Coconut",
+            "benefit": "Strengthens & Repairs"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_1",
+        "ingredient_2",
+        "ingredient_3",
+        "ingredient_4"
+      ]
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "eyebrow": "The AZULA Standard",
+        "title": "Nothing artificial.",
+        "title_accent": "Nothing unnecessary.",
+        "text": "Every formula begins with the plant, not the lab. We keep what your hair needs and leave out everything it doesn't."
+      },
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "value": "100%",
+            "label": "Natural ingredients"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "value": "0",
+            "label": "Silicones"
+          }
+        },
+        "fact_3": {
+          "type": "fact",
+          "settings": {
+            "value": "4",
+            "label": "Key botanicals"
+          }
+        },
+        "fact_4": {
+          "type": "fact",
+          "settings": {
+            "value": "Vegan",
+            "label": "Dermatologically tested"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4"
+      ]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "eyebrow": "Reviews",
+        "heading": "What our customers say",
+        "rating": "4.9",
+        "rating_label": "Based on 739 reviews",
+        "speed": 28,
+        "resume_after": 7
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "My scalp finally feels calm.",
+            "text": "After three weeks my hair feels stronger and so much lighter. The scent is subtle and natural – exactly what I was looking for.",
+            "author": "Laura M.",
+            "product": "shampoo"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Soft without weighing it down.",
+            "text": "I was sceptical about going silicone-free, but my lengths have never been this smooth. A little goes a long way.",
+            "author": "Sophie K.",
+            "product": "conditioner"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "The two really belong together.",
+            "text": "Using both made the difference for me. More shine, less frizz, and the bottles look beautiful in the bathroom.",
+            "author": "Jonas R.",
+            "product": "the-duo"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Gentle, but it really cleans.",
+            "text": "It lathers less than I was used to, yet my hair feels properly clean and stays fresh a day longer.",
+            "author": "Mia T.",
+            "product": "shampoo"
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "My curls love it.",
+            "text": "Easy to detangle, defined curls and no heavy film. I only need a small amount for my whole hair.",
+            "author": "Elena P.",
+            "product": "conditioner"
+          }
+        },
+        "review_6": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Finally no more itching.",
+            "text": "My sensitive scalp reacts to almost everything. With this shampoo it has been calm from the first week.",
+            "author": "David H.",
+            "product": "shampoo"
+          }
+        },
+        "review_7": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "A ritual I look forward to.",
+            "text": "The scent, the texture, the result – washing my hair has become a small moment for myself.",
+            "author": "Hannah B.",
+            "product": "the-duo"
+          }
+        },
+        "review_8": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Shine without silicones.",
+            "text": "I did not think this was possible. My hair looks healthy and feels natural, not coated.",
+            "author": "Clara W.",
+            "product": "conditioner"
+          }
+        },
+        "review_9": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Lasts longer than expected.",
+            "text": "Half a litre and you need very little. After two months the bottle is still more than half full.",
+            "author": "Felix S.",
+            "product": "shampoo"
+          }
+        },
+        "review_10": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Bought it as a gift, kept it.",
+            "text": "It was meant for my sister. Now we both use it – and she got her own set.",
+            "author": "Nina L.",
+            "product": "the-duo"
+          }
+        },
+        "review_11": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Perfect for dry ends.",
+            "text": "I leave it in for three minutes and my ends feel soft again. No more straw-like tips in winter.",
+            "author": "Marie F.",
+            "product": "conditioner"
+          }
+        },
+        "review_12": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Light, fresh, natural.",
+            "text": "The rosemary note is lovely and not perfumed. My hair has more volume at the roots.",
+            "author": "Tom A.",
+            "product": "shampoo"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6",
+        "review_7",
+        "review_8",
+        "review_9",
+        "review_10",
+        "review_11",
+        "review_12"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the world of AZULA",
+        "text": "Care rituals, new arrivals and private offers – a few times a year.",
+        "button": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "band",
+    "statement",
+    "reviews",
+    "newsletter"
+  ]
+}

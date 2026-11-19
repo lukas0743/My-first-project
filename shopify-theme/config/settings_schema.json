@@ -1,0 +1,143 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AZULA",
+    "theme_version": "1.0.0",
+    "theme_author": "AZULA Natural Care",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/manual/online-store/themes"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional. Without an image the AZULA mark and wordmark below are used."
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Wordmark",
+        "default": "AZULA"
+      },
+      {
+        "type": "text",
+        "id": "logo_subtext",
+        "label": "Line under the wordmark",
+        "default": "Natural Care"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 × 32 px PNG."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background (deep black)",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text (ivory)",
+        "default": "#F5EDE2"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (bronze)",
+        "default": "#C9925E"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_light",
+        "label": "Light accent",
+        "default": "#E3AE7E"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text (taupe)",
+        "default": "#8B7A6B"
+      },
+      {
+        "type": "color",
+        "id": "color_forest",
+        "label": "Forest green",
+        "default": "#2E3D2E"
+      },
+      {
+        "type": "header",
+        "content": "Bronze gradient (buttons)"
+      },
+      {
+        "type": "color",
+        "id": "gradient_start",
+        "label": "Start",
+        "default": "#EDBE92"
+      },
+      {
+        "type": "color",
+        "id": "gradient_middle",
+        "label": "Middle",
+        "default": "#D9A06B"
+      },
+      {
+        "type": "color",
+        "id": "gradient_end",
+        "label": "End",
+        "default": "#B97F4B"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "When a product is added",
+        "default": "drawer",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Open the slide-out bag"
+          },
+          {
+            "value": "page",
+            "label": "Go to the bag page"
+          },
+          {
+            "value": "notification",
+            "label": "Show a short message"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "text",
+        "id": "bundle_tag",
+        "label": "Bundle tag",
+        "default": "bundle",
+        "info": "Products with this tag show their first two photos side by side, like \"The Duo\"."
+      },
+      {
+        "type": "paragraph",
+        "content": "Cards and product pages also read these product metafields (namespace custom): tagline, size, short_description, how_to_use, key_ingredients. Star ratings come from a review app (reviews.rating, reviews.rating_count)."
+      }
+    ]
+  }
+]

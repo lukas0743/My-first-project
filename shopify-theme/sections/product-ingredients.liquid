@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head reveal">
+      {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      {%- if section.settings.heading != blank %}<h2 class="section__title">{{ section.settings.heading | escape }}</h2>{% endif %}
+    </div>
+    <ul class="ingredients ingredients--lg">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 | times: 0.08 -%}
+        <li class="ingredient reveal" style="--d:{{ delay }}s" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif -%}
+          <div class="ingredient__img">{% render 'ingredient-art', art: block.settings.art, image: block.settings.image %}</div>
+          <h4>{{ block.settings.name | escape }}</h4>
+          <p>{{ block.settings.benefit | escape }}</p>
+          {%- if block.settings.link != blank %}</a>{% endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredient tiles",
+  "tag": "div",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Key Ingredients" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What's inside" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "select", "id": "art", "label": "Illustration", "default": "aloe", "options": [
+          { "value": "aloe", "label": "Aloe vera" }, { "value": "rosemary", "label": "Rosemary" },
+          { "value": "argan", "label": "Argan oil" }, { "value": "coconut", "label": "Coconut" } ] },
+        { "type": "image_picker", "id": "image", "label": "Photo instead of the illustration" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Aloe Vera" },
+        { "type": "text", "id": "benefit", "label": "Benefit", "default": "Soothes & Moisturizes" },
+        { "type": "url", "id": "link", "label": "Link", "default": "/pages/ingredients" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Ingredient tiles", "blocks": [ { "type": "ingredient" } ] } ]
+}
+{% endschema %}

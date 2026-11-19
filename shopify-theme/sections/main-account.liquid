@@ -1,0 +1,49 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'customer.eyebrow' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ 'customer.account.title' | t: name: customer.first_name }}</h1>
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container account">
+    <div class="account__orders">
+      <h2 class="section__title">{{ 'customer.account.orders' | t }}</h2>
+      {%- paginate customer.orders by 20 -%}
+        {%- if customer.orders.size > 0 -%}
+          <table class="table">
+            <thead><tr><th scope="col">{{ 'customer.order.order' | t }}</th><th scope="col">{{ 'customer.order.date' | t }}</th><th scope="col">{{ 'customer.order.payment' | t }}</th><th scope="col">{{ 'customer.order.fulfillment' | t }}</th><th scope="col">{{ 'customer.order.total' | t }}</th></tr></thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr>
+                  <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                  <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                  <td>{{ order.financial_status_label }}</td>
+                  <td>{{ order.fulfillment_status_label }}</td>
+                  <td>{{ order.total_net_amount | money_with_currency }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- else -%}
+          <p class="band__text">{{ 'customer.account.no_orders' | t }}</p>
+        {%- endif -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endpaginate -%}
+    </div>
+    <aside class="bag__summary">
+      <p class="eyebrow">{{ 'customer.account.details' | t }}</p>
+      <p>{{ customer.name | escape }}<br>{{ customer.email | escape }}</p>
+      {{ customer.default_address | format_address }}
+      <a class="link-arrow" href="{{ routes.account_addresses_url }}">{{ 'customer.account.addresses' | t: count: customer.addresses_count }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn--ghost" href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a>
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer account",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

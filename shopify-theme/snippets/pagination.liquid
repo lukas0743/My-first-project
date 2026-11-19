@@ -1,0 +1,20 @@
+{%- comment -%} Page links for collections, blogs and search results. {%- endcomment -%}
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" aria-label="{{ 'general.pagination' | t }}">
+    {%- if paginate.previous -%}
+      <a class="pagination__link" href="{{ paginate.previous.url }}" aria-label="{{ 'general.previous' | t }}"><svg class="pagination__prev" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    {%- endif -%}
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+        <a class="pagination__link" href="{{ part.url }}">{{ part.title }}</a>
+      {%- elsif part.title == paginate.current_page -%}
+        <span class="pagination__link is-current" aria-current="page">{{ part.title }}</span>
+      {%- else -%}
+        <span class="pagination__gap">{{ part.title }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if paginate.next -%}
+      <a class="pagination__link" href="{{ paginate.next.url }}" aria-label="{{ 'general.next' | t }}"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

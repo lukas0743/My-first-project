@@ -1,0 +1,16 @@
+<section class="section">
+  <div class="container">
+    <div class="manifesto reveal">{{ section.settings.text }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "tag": "div",
+  "settings": [
+    { "type": "richtext", "id": "text", "label": "Text", "info": "Italic words appear in bronze.", "default": "<p>We believe hair care should be <em>honest</em>. A short list of ingredients you can understand, chosen because they work – for hair that feels as good as it looks.</p>" }
+  ],
+  "presets": [ { "name": "Manifesto" } ]
+}
+{% endschema %}

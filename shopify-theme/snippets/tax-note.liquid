@@ -1,0 +1,7 @@
+{%- comment -%} "Taxes included. Shipping calculated at checkout." with a link to the shipping policy when one exists. {%- endcomment -%}
+{%- if cart.taxes_included -%}{{ 'cart.taxes_included' | t }}{%- else -%}{{ 'cart.taxes_excluded' | t }}{%- endif %}
+{% if shop.shipping_policy.body != blank -%}
+  {{ 'cart.shipping_at_checkout_html' | t: link: shop.shipping_policy.url }}
+{%- else -%}
+  {{ 'cart.shipping_at_checkout' | t }}
+{%- endif -%}

@@ -1,0 +1,29 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'general.shop' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ 'collections.all_title' | t }}</h1>
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container">
+    <div class="articles">
+      {%- for collection in collections -%}
+        {%- assign delay = forloop.index0 | modulo: 3 | times: 0.1 -%}
+        <a class="article reveal" href="{{ collection.url }}" style="--d:{{ delay }}s">
+          <span class="article__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+          <span class="article__cat">{{ 'collections.products_count' | t: count: collection.products_count }}</span>
+          <h3>{{ collection.title | escape }}</h3>
+          {%- if collection.description != blank %}<span class="article__meta">{{ collection.description | strip_html | truncatewords: 14 }}</span>{% endif %}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

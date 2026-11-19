@@ -1,0 +1,36 @@
+{%- comment -%}
+  Big centred heading at the top of inner pages. Empty fields fall back to the title/description
+  of the current page, collection or blog, so the same section works for every collection.
+{%- endcomment -%}
+{%- liquid
+  assign resource_title = page.title | default: collection.title | default: blog.title
+  assign resource_text = collection.description | default: blog.metafields.custom.description.value
+  assign title = section.settings.title | default: resource_title
+  assign lead = section.settings.text | default: resource_text
+-%}
+<section class="page-hero{% if section.settings.small %} page-hero--sm{% endif %}">
+  <div class="container">
+    {%- if section.settings.eyebrow != blank %}<p class="eyebrow load" style="--d:.1s">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1 class="page-hero__title load" style="--d:.2s">
+      {{- title | escape | newline_to_br -}}
+      {%- if section.settings.title_accent != blank %}{% unless section.settings.accent_inline %}<br>{% else %} {% endunless %}<em>{{ section.settings.title_accent | escape }}</em>{% endif -%}
+    </h1>
+    {%- if lead != blank %}<div class="page-hero__lead load" style="--d:.35s">{{ lead }}</div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page heading",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading" },
+    { "type": "textarea", "id": "title", "label": "Headline", "info": "Leave empty to use the title of the page, collection or blog." },
+    { "type": "text", "id": "title_accent", "label": "Headline accent (bronze, italic)" },
+    { "type": "checkbox", "id": "accent_inline", "label": "Accent on the same line", "default": false },
+    { "type": "richtext", "id": "text", "label": "Text", "info": "Leave empty to use the collection description." },
+    { "type": "checkbox", "id": "small", "label": "Smaller heading", "default": false }
+  ],
+  "presets": [ { "name": "Page heading" } ]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'search.title' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ section.settings.title | escape }} <em>{{ section.settings.title_accent | escape }}</em></h1>
+  </div>
+</section>
+
+<section class="section section--flush">
+  <div class="container search">
+    <form class="newsletter__form search__form" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="sr-only" for="searchInput">{{ 'search.label' | t: shop: shop.name }}</label>
+      <input type="search" id="searchInput" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder_short' | t }}" autocomplete="off">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="btn btn--bronze" type="submit">{{ 'search.submit' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 12 -%}
+        <p class="search__count" role="status">{{ 'search.results_for' | t: count: search.results_count, terms: search.terms }}</p>
+        <ul class="search__results">
+          {%- for item in search.results -%}
+            {%- liquid
+              case item.object_type
+                when 'product'
+                  assign type_label = 'search.types.product' | t
+                  assign desc = item.metafields.custom.tagline.value | default: item.type
+                when 'article'
+                  assign type_label = 'search.types.article' | t
+                  assign desc = item.blog.title
+                else
+                  assign type_label = 'search.types.page' | t
+                  assign desc = item.content | strip_html | truncatewords: 12
+              endcase
+            -%}
+            <li><a href="{{ item.url }}"><span class="search__type">{{ type_label }}</span><span class="search__title"><span>{{ item.title | escape }}</span><span class="search__desc">{{ desc | escape }}{% if item.object_type == 'product' %} · {% render 'price', product: item, show_from: true %}{% endif %}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          {%- endfor -%}
+        </ul>
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <p class="search__count">{{ 'search.suggestions' | t }}</p>
+      <ul class="search__results">
+        {%- for product in collections.all.products limit: 5 -%}
+          <li><a href="{{ product.url }}"><span class="search__type">{{ 'search.types.product' | t }}</span><span class="search__title"><span>{{ product.title | escape }}</span><span class="search__desc">{{ product.metafields.custom.tagline.value | default: product.type }}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search results",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Headline", "default": "What are you" },
+    { "type": "text", "id": "title_accent", "label": "Headline accent", "default": "looking for?" }
+  ]
+}
+{% endschema %}

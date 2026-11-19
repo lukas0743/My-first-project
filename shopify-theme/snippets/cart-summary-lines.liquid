@@ -1,0 +1,4 @@
+{%- comment -%} Order-level discounts shown above the total (drawer and cart page). {%- endcomment -%}
+{%- for discount in cart.cart_level_discount_applications -%}
+  <div><dt>{{ discount.title | escape }}</dt><dd>−{{ discount.total_allocated_amount | money }}</dd></div>
+{%- endfor -%}

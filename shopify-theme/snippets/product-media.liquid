@@ -1,0 +1,37 @@
+{%- comment -%}
+  The photo(s) of a product inside a card, the product page or the bag.
+  Bundles (products tagged with the "bundle tag" theme setting) show their first two images side by side, like "The Duo".
+  If a product has no images yet, the original AZULA photos are used for products whose handle contains
+  "shampoo", "conditioner" or "duo", so the shop looks right before photos are uploaded.
+  Accepts: product, image (optional override, e.g. the selected variant's image), sizes, priority
+{%- endcomment -%}
+{%- liquid
+  assign is_bundle = false
+  if settings.bundle_tag != blank and product.tags contains settings.bundle_tag
+    assign is_bundle = true
+  endif
+  assign main_image = image | default: product.featured_image
+-%}
+{%- if product.media.size > 0 -%}
+  {%- if is_bundle and product.media.size > 1 -%}
+    {%- for media in product.media limit: 2 -%}
+      {%- render 'shot', image: media.preview_image, alt: product.title, sizes: sizes, priority: priority -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- render 'shot', image: main_image, alt: product.title, sizes: sizes, priority: priority -%}
+  {%- endif -%}
+{%- else -%}
+  {%- liquid
+    assign handle = product.handle
+    if is_bundle or handle contains 'duo'
+      render 'shot', fallback: 'shampoo.jpg', alt: product.title, priority: priority
+      render 'shot', fallback: 'conditioner.jpg', alt: '', priority: priority
+    elsif handle contains 'conditioner'
+      render 'shot', fallback: 'conditioner.jpg', alt: product.title, priority: priority
+    elsif handle contains 'shampoo'
+      render 'shot', fallback: 'shampoo.jpg', alt: product.title, priority: priority
+    else
+      render 'shot', alt: product.title
+    endif
+  -%}
+{%- endif -%}

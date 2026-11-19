@@ -1,0 +1,11 @@
+{%- comment -%}
+  Size label of a product, e.g. "500 ml". Taken from the product metafield custom.size;
+  for products with several variants the selected variant's title is used instead.
+{%- endcomment -%}
+{%- liquid
+  assign size_label = product.metafields.custom.size.value
+  if size_label == blank and product.has_only_default_variant == false
+    assign size_label = variant.title | default: product.selected_or_first_available_variant.title
+  endif
+  echo size_label
+-%}

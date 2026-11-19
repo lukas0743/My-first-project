@@ -1,0 +1,40 @@
+<section class="section section--tight">
+  <div class="container">
+    <ul class="trust trust--center reveal">
+      {%- for block in section.blocks -%}
+        {%- render 'trust-item', icon: block.settings.icon, label: block.settings.label, block: block -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Badges",
+  "tag": "div",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
+          { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" },
+          { "value": "lotus", "label": "Lotus" }, { "value": "shield", "label": "Shield" } ] },
+        { "type": "textarea", "id": "label", "label": "Label", "default": "100% Natural\nIngredients" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "leaf", "label": "100% Natural\nIngredients" } },
+        { "type": "badge", "settings": { "icon": "flask", "label": "Silicone\nFree" } },
+        { "type": "badge", "settings": { "icon": "lotus", "label": "Vegan" } },
+        { "type": "badge", "settings": { "icon": "shield", "label": "Dermatologically\nTested" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

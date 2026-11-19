@@ -1,0 +1,18 @@
+{%- comment -%}
+  Illustration of an ingredient. Uses an uploaded image if given, otherwise one of the original drawings.
+  Accepts: art ('aloe' | 'rosemary' | 'argan' | 'coconut'), image
+{%- endcomment -%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 900 | image_tag: class: 'ingredient__photo', loading: 'lazy', widths: '300, 600, 900', sizes: '(min-width: 1025px) 25vw, 50vw' }}
+{%- else -%}
+  {%- case art -%}
+    {%- when 'rosemary' -%}
+      <svg viewBox="0 0 120 90" aria-hidden="true" style="color:#5f8a4f"><use href="#sprig" x="20" y="-28" width="80" height="150" transform="rotate(52 60 45)"/></svg>
+    {%- when 'argan' -%}
+      <svg viewBox="0 0 120 90" aria-hidden="true"><use href="#argan" x="4" y="10" width="112" height="72"/></svg>
+    {%- when 'coconut' -%}
+      <svg viewBox="0 0 120 90" aria-hidden="true"><use href="#coconut"/></svg>
+    {%- else -%}
+      <svg viewBox="0 0 120 90" aria-hidden="true"><use href="#aloe"/></svg>
+  {%- endcase -%}
+{%- endif -%}

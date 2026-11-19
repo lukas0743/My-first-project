@@ -1,0 +1,24 @@
+<section class="cta-band">
+  <div class="container reveal">
+    <svg class="newsletter__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+    {%- if section.settings.heading != blank %}<h2 class="statement__title statement__title--sm">{{ section.settings.heading | escape }}</h2>{% endif %}
+    {%- if section.settings.text != blank %}<p class="band__text">{{ section.settings.text | escape }}</p>{% endif %}
+    {%- if section.settings.button_label != blank -%}
+      <a class="btn btn--bronze" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Call to action",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Feel the difference" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the Collection" },
+    { "type": "url", "id": "button_link", "label": "Button link", "default": "/collections/all" }
+  ],
+  "presets": [ { "name": "Call to action" } ]
+}
+{% endschema %}

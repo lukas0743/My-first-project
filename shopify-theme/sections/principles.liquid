@@ -1,0 +1,40 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head reveal">
+      {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      {%- if section.settings.heading != blank %}<h2 class="section__title">{{ section.settings.heading | escape }}</h2>{% endif %}
+    </div>
+    <div class="principles">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 | times: 0.1 -%}
+        <article class="principle reveal" style="--d:{{ delay }}s" {{ block.shopify_attributes }}><svg aria-hidden="true"><use href="#i-{{ block.settings.icon }}"/></svg><span class="principle__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><h3>{{ block.settings.title | escape }}</h3><p>{{ block.settings.text | escape }}</p></article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Principles",
+  "tag": "div",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Our Principles" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three promises" }
+  ],
+  "blocks": [
+    {
+      "type": "principle",
+      "name": "Principle",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
+          { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" },
+          { "value": "lotus", "label": "Lotus" }, { "value": "shield", "label": "Shield" } ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Nature first" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Principles", "blocks": [ { "type": "principle" }, { "type": "principle" }, { "type": "principle" } ] } ]
+}
+{% endschema %}

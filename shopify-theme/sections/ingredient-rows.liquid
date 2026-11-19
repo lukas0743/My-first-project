@@ -1,0 +1,38 @@
+<section class="section section--flush">
+  <div class="container ing-list">
+    {%- for block in section.blocks -%}
+      <article class="ing-row reveal" {{ block.shopify_attributes }}>
+        <div class="ing-row__visual">{% render 'ingredient-art', art: block.settings.art, image: block.settings.image %}</div>
+        <div class="ing-row__text">
+          {%- if block.settings.benefit != blank %}<p class="eyebrow">{{ block.settings.benefit | escape }}</p>{% endif %}
+          <h2 class="section__title">{{ block.settings.name | escape }}</h2>
+          {%- if block.settings.text != blank %}<p>{{ block.settings.text | escape }}</p>{% endif %}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredient stories",
+  "tag": "div",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "select", "id": "art", "label": "Illustration", "default": "aloe", "options": [
+          { "value": "aloe", "label": "Aloe vera" }, { "value": "rosemary", "label": "Rosemary" },
+          { "value": "argan", "label": "Argan oil" }, { "value": "coconut", "label": "Coconut" } ] },
+        { "type": "image_picker", "id": "image", "label": "Photo instead of the illustration" },
+        { "type": "text", "id": "benefit", "label": "Benefit", "default": "Soothes & Moisturizes" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Aloe Vera" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Ingredient stories", "blocks": [ { "type": "ingredient" } ] } ]
+}
+{% endschema %}

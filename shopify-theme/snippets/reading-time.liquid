@@ -1,0 +1,6 @@
+{%- comment -%} "4 min read", estimated from the article length (200 words per minute). {%- endcomment -%}
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign minutes = words | divided_by: 200 | at_least: 1
+  echo 'blogs.reading_time' | t: minutes: minutes
+-%}

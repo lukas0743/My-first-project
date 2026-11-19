@@ -1,0 +1,24 @@
+{%- comment -%}
+  One photo in the "shot" style used everywhere (hero, cards, product page).
+  Accepts:
+  - image: image object (from Shopify) – preferred
+  - fallback: file name of a theme asset used when no image is set
+  - alt: alt text used when the image has none
+  - sizes: responsive sizes attribute
+  - priority: true for above-the-fold images
+{%- endcomment -%}
+{%- liquid
+  assign alt_text = image.alt | default: alt | default: ''
+  assign img_sizes = sizes | default: '(min-width: 1025px) 33vw, 100vw'
+-%}
+{%- if image != blank -%}
+  {%- if priority -%}
+    {{ image | image_url: width: 1400 | image_tag: class: 'shot', alt: alt_text, sizes: img_sizes, widths: '360, 540, 720, 960, 1200, 1400', loading: 'eager', fetchpriority: 'high' }}
+  {%- else -%}
+    {{ image | image_url: width: 1400 | image_tag: class: 'shot', alt: alt_text, sizes: img_sizes, widths: '360, 540, 720, 960, 1200, 1400', loading: 'lazy' }}
+  {%- endif -%}
+{%- elsif fallback != blank -%}
+  <img class="shot" src="{{ fallback | asset_url }}" alt="{{ alt_text | escape }}" width="1122" height="1402"{% if priority %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+{%- else -%}
+  {{ 'product-1' | placeholder_svg_tag: 'shot shot--placeholder' }}
+{%- endif -%}

@@ -1,0 +1,31 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <p class="eyebrow load" style="--d:.1s">{{ 'customer.eyebrow' | t }}</p>
+    <h1 class="page-hero__title load" style="--d:.2s">{{ 'customer.register.title' | t }} <em>{{ 'customer.register.accent' | t }}</em></h1>
+  </div>
+</section>
+<section class="section section--flush">
+  <div class="container">
+    {%- form 'create_customer', class: 'auth', novalidate: 'novalidate' -%}
+      {%- if form.errors %}<div class="auth__msg is-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+      <label for="RegisterFirstName">{{ 'customer.first_name' | t }}</label>
+      <input type="text" id="RegisterFirstName" name="customer[first_name]" autocomplete="given-name">
+      <label for="RegisterLastName">{{ 'customer.last_name' | t }}</label>
+      <input type="text" id="RegisterLastName" name="customer[last_name]" autocomplete="family-name">
+      <label for="RegisterEmail">{{ 'customer.email' | t }}</label>
+      <input type="email" id="RegisterEmail" name="customer[email]" autocomplete="email" autocapitalize="off" required>
+      <label for="RegisterPassword">{{ 'customer.password' | t }}</label>
+      <input type="password" id="RegisterPassword" name="customer[password]" autocomplete="new-password" minlength="5" required>
+      <button class="btn btn--bronze" type="submit">{{ 'customer.register.submit' | t }}</button>
+      <p class="auth__alt">{{ 'customer.register.have_account' | t }} <a href="{{ routes.account_login_url }}">{{ 'customer.login.submit' | t }}</a></p>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer register",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_breadcrumbs": true
+      },
+      "blocks": {
+        "tagline": {
+          "type": "tagline",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "fallback_to_description": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {
+            "badge_1": "100% natural ingredients",
+            "badge_2": "Silicone free",
+            "badge_3": "Vegan",
+            "badge_4": "Dermatologically tested"
+          }
+        },
+        "tab_description": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "source": "description",
+            "open": true
+          }
+        },
+        "tab_how_to_use": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "source": "how_to_use",
+            "open": false
+          }
+        },
+        "tab_ingredients": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Key ingredients",
+            "source": "key_ingredients",
+            "open": false,
+            "link_label": "Learn more about our ingredients",
+            "link": "shopify://pages/ingredients"
+          }
+        }
+      },
+      "block_order": [
+        "tagline",
+        "title",
+        "rating",
+        "price",
+        "text",
+        "variant_picker",
+        "buy_buttons",
+        "badges",
+        "tab_description",
+        "tab_how_to_use",
+        "tab_ingredients"
+      ]
+    },
+    "ingredients": {
+      "type": "product-ingredients",
+      "settings": {
+        "eyebrow": "Key Ingredients",
+        "heading": "What's inside"
+      },
+      "blocks": {
+        "ingredient_1": {
+          "type": "ingredient",
+          "settings": {
+            "art": "aloe",
+            "name": "Aloe Vera",
+            "benefit": "Soothes & Moisturizes",
+            "link": "shopify://pages/ingredients"
+          }
+        },
+        "ingredient_2": {
+          "type": "ingredient",
+          "settings": {
+            "art": "rosemary",
+            "name": "Rosemary",
+            "benefit": "Stimulates Hair Growth",
+            "link": "shopify://pages/ingredients"
+          }
+        },
+        "ingredient_3": {
+          "type": "ingredient",
+          "settings": {
+            "art": "argan",
+            "name": "Argan Oil",
+            "benefit": "Nourishes & Adds Shine",
+            "link": "shopify://pages/ingredients"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_1",
+        "ingredient_2",
+        "ingredient_3"
+      ]
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "eyebrow": "Complete the Ritual",
+        "heading": "You may also like",
+        "count": 2
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ingredients",
+    "related"
+  ]
+}

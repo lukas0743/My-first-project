@@ -1,0 +1,95 @@
+{%- liquid
+  assign bestsellers = section.settings.collection
+  if bestsellers == blank
+    assign bestsellers = collections.all
+  endif
+-%}
+<section class="band">
+  <div class="container band__grid">
+
+    <div class="band__col reveal" id="shop">
+      {%- if section.settings.products_heading != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.products_heading | escape }}</p>{% endif %}
+      <div class="products">
+        {%- for product in bestsellers.products limit: section.settings.products_count -%}
+          {%- render 'product-tile', product: product -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="band__col band__col--divided reveal" id="ingredients" style="--d:.12s">
+      {%- if section.settings.ingredients_heading != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.ingredients_heading | escape }}</p>{% endif %}
+      {%- if section.settings.ingredients_title != blank %}<h2 class="band__title">{{ section.settings.ingredients_title | escape }}</h2>{% endif %}
+      {%- if section.settings.ingredients_text != blank %}<p class="band__text">{{ section.settings.ingredients_text | escape }}</p>{% endif %}
+      <ul class="ingredients">
+        {%- for block in section.blocks -%}
+          <li class="ingredient" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif -%}
+            <div class="ingredient__img">{% render 'ingredient-art', art: block.settings.art, image: block.settings.image %}</div>
+            <h4>{{ block.settings.name | escape }}</h4>
+            <p>{{ block.settings.benefit | escape }}</p>
+            {%- if block.settings.link != blank %}</a>{% endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="band__col band__col--divided reveal" id="philosophy" style="--d:.24s">
+      {%- if section.settings.philosophy_heading != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.philosophy_heading | escape }}</p>{% endif %}
+      {%- if section.settings.philosophy_title != blank %}<h2 class="band__title band__title--lg">{{ section.settings.philosophy_title | escape | newline_to_br }}</h2>{% endif %}
+      {%- if section.settings.philosophy_text != blank %}<p class="band__text">{{ section.settings.philosophy_text | escape }}</p>{% endif %}
+      {%- if section.settings.philosophy_button != blank -%}
+        <a class="btn btn--bronze btn--sm" href="{{ section.settings.philosophy_link | default: routes.root_url }}">{{ section.settings.philosophy_button | escape }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bestsellers & story",
+  "tag": "div",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Bestsellers" },
+    { "type": "text", "id": "products_heading", "label": "Heading", "default": "Our Bestsellers" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to show the first products of the shop." },
+    { "type": "range", "id": "products_count", "label": "Number of products", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "header", "content": "Ingredients" },
+    { "type": "text", "id": "ingredients_heading", "label": "Small heading", "default": "Our Natural Ingredients" },
+    { "type": "text", "id": "ingredients_title", "label": "Heading", "default": "The Power of Nature" },
+    { "type": "textarea", "id": "ingredients_text", "label": "Text", "default": "Carefully selected, high-quality plant extracts for visible and long-lasting healthy hair." },
+    { "type": "header", "content": "Philosophy" },
+    { "type": "text", "id": "philosophy_heading", "label": "Small heading", "default": "Our Philosophy" },
+    { "type": "textarea", "id": "philosophy_title", "label": "Heading", "default": "Natural Care.\nReal Results." },
+    { "type": "textarea", "id": "philosophy_text", "label": "Text", "default": "AZULA stands for modern, natural hair care – combining effective formulas with the pure power of nature. For healthier, stronger and more radiant hair." },
+    { "type": "text", "id": "philosophy_button", "label": "Button label", "default": "Discover AZULA" },
+    { "type": "url", "id": "philosophy_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "select", "id": "art", "label": "Illustration", "default": "aloe", "options": [
+          { "value": "aloe", "label": "Aloe vera" }, { "value": "rosemary", "label": "Rosemary" },
+          { "value": "argan", "label": "Argan oil" }, { "value": "coconut", "label": "Coconut" } ] },
+        { "type": "image_picker", "id": "image", "label": "Photo instead of the illustration" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Aloe Vera" },
+        { "type": "text", "id": "benefit", "label": "Benefit", "default": "Soothes & Moisturizes" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestsellers & story",
+      "blocks": [
+        { "type": "ingredient", "settings": { "art": "aloe", "name": "Aloe Vera", "benefit": "Soothes & Moisturizes" } },
+        { "type": "ingredient", "settings": { "art": "rosemary", "name": "Rosemary", "benefit": "Stimulates Hair Growth" } },
+        { "type": "ingredient", "settings": { "art": "argan", "name": "Argan Oil", "benefit": "Nourishes & Adds Shine" } },
+        { "type": "ingredient", "settings": { "art": "coconut", "name": "Coconut", "benefit": "Strengthens & Repairs" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

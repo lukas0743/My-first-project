@@ -1,0 +1,50 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- assign initial_value = gift_card.initial_value | money %}
+  <title>{{ 'gift_card.title' | t: value: initial_value, shop: shop.name }}</title>
+  {% # theme-check-disable RemoteAsset %}
+  {%- comment -%} The original Google Fonts (Cormorant Garamond + Montserrat) keep the typography identical. {%- endcomment %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+  {% # theme-check-enable RemoteAsset %}
+  {{ 'azula.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+</head>
+<body class="template-gift-card">
+  {% render 'icon-sprite' %}
+  <main id="main" role="main">
+    <section class="page-hero">
+      <div class="container">
+        {% render 'logo' %}
+        <p class="eyebrow">{{ 'gift_card.eyebrow' | t }}</p>
+        <h1 class="page-hero__title">{{ gift_card.balance | money }}</h1>
+        {%- if gift_card.expired or gift_card.enabled == false -%}
+          <p class="page-hero__lead">{% if gift_card.expired %}{{ 'gift_card.expired' | t }}{% else %}{{ 'gift_card.disabled' | t }}{% endif %}</p>
+        {%- elsif gift_card.expires_on -%}
+          {%- assign expires = gift_card.expires_on | date: format: 'date' -%}
+          <p class="page-hero__lead">{{ 'gift_card.expires_on' | t: date: expires }}</p>
+        {%- endif -%}
+        <p class="gift-card__code" aria-label="{{ 'gift_card.code' | t }}">{{ gift_card.code | format_code }}</p>
+        <div class="gift-card__qr" id="QrCode" data-identifier="{{ gift_card.qr_identifier }}"></div>
+        <p class="page-hero__actions">
+          <a class="btn btn--bronze" href="{{ shop.url }}">{{ 'gift_card.shop' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <button class="btn btn--ghost" type="button" onclick="window.print();">{{ 'gift_card.print' | t }}</button>
+        </p>
+        {%- if gift_card.pass_url %}<p><a href="{{ gift_card.pass_url }}"><img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="{{ 'gift_card.apple_wallet' | t }}" loading="lazy"></a></p>{% endif %}
+      </div>
+    </section>
+  </main>
+  <script>
+    window.addEventListener('load', function () {
+      var el = document.getElementById('QrCode');
+      if (el && window.QRCode) new QRCode(el, { text: el.dataset.identifier, width: 120, height: 120 });
+    });
+  </script>
+</body>
+</html>

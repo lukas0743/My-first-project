@@ -1,0 +1,71 @@
+<section class="magazine reviews" id="reviews" aria-label="{{ section.settings.heading | escape }}">
+  <div class="container">
+    <div class="magazine__head reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {%- if section.settings.heading != blank %}<h2 class="band__title band__title--lg">{{ section.settings.heading | escape }}</h2>{% endif %}
+      </div>
+      {%- if section.settings.rating != blank -%}
+        <div class="reviews__side">
+          <p class="reviews__summary"><strong>{{ section.settings.rating | escape }}</strong><span><span class="stars" role="img" aria-label="{{ 'products.rating' | t: rating: section.settings.rating, max: 5 }}">★★★★★</span>{% if section.settings.rating_label != blank %}<small>{{ section.settings.rating_label | escape }}</small>{% endif %}</span></p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- if section.blocks.size > 0 -%}
+    <div class="reviews__stage reveal" style="--d:.1s">
+      {%- if section.blocks.size > 1 -%}
+        <button class="drawer__close reviews__btn reviews__btn--prev" type="button" data-reviews-prev aria-label="{{ 'reviews.previous' | t }}"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <button class="drawer__close reviews__btn" type="button" data-reviews-next aria-label="{{ 'reviews.next' | t }}"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      {%- endif -%}
+      <div class="reviews__viewport">
+        <ul class="reviews__track" data-reviews-track data-speed="{{ section.settings.speed }}" data-resume="{{ section.settings.resume_after | times: 1000 }}" tabindex="0" aria-label="{{ 'reviews.track_label' | t }}">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}><figure class="review">
+              <span class="stars" role="img" aria-label="{{ 'products.rating' | t: rating: block.settings.stars, max: 5 }}">
+                {%- for i in (1..5) -%}{%- if i <= block.settings.stars -%}★{%- else -%}<span class="stars__off">★</span>{%- endif -%}{%- endfor -%}
+              </span>
+              <blockquote>
+                {%- if block.settings.title != blank %}<h3>{{ block.settings.title | escape }}</h3>{% endif %}
+                {%- if block.settings.text != blank %}<p>{{ block.settings.text | escape }}</p>{% endif %}
+              </blockquote>
+              <figcaption>
+                <span class="review__name">{{ block.settings.author | escape }}</span>
+                {%- if block.settings.product != blank %}<a href="{{ block.settings.product.url }}">{{ block.settings.product.title | escape }}</a>{% endif -%}
+              </figcaption>
+            </figure></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Reviews carousel",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What our customers say" },
+    { "type": "text", "id": "rating", "label": "Average rating", "info": "Leave empty to hide the summary." },
+    { "type": "text", "id": "rating_label", "label": "Rating label", "info": "For example \"Based on 120 reviews\"." },
+    { "type": "range", "id": "speed", "label": "Scroll speed", "min": 10, "max": 80, "step": 2, "unit": "px", "default": 28, "info": "Pixels per second." },
+    { "type": "range", "id": "resume_after", "label": "Restart after interaction", "min": 2, "max": 20, "step": 1, "unit": "s", "default": 7 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Review" },
+        { "type": "text", "id": "author", "label": "Name" },
+        { "type": "product", "id": "product", "label": "Reviewed product" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Reviews carousel" } ]
+}
+{% endschema %}

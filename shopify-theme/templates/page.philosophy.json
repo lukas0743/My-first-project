@@ -1,0 +1,139 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Our Philosophy",
+        "title": "Natural Care.",
+        "title_accent": "Real Results.",
+        "text": "<p>AZULA stands for modern, natural hair care – combining effective formulas with the pure power of nature.</p>"
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {
+        "text": "<p>We believe hair care should be <em>honest</em>. A short list of ingredients you can understand, chosen because they work – for hair that feels as good as it looks.</p>"
+      }
+    },
+    "principles": {
+      "type": "principles",
+      "settings": {
+        "eyebrow": "Our Principles",
+        "heading": "Three promises"
+      },
+      "blocks": {
+        "principle_1": {
+          "type": "principle",
+          "settings": {
+            "icon": "leaf",
+            "title": "Nature first",
+            "text": "Every formula begins with the plant, not the lab. Aloe vera, rosemary, argan oil and coconut form the heart of everything we make."
+          }
+        },
+        "principle_2": {
+          "type": "principle",
+          "settings": {
+            "icon": "flask",
+            "title": "Nothing unnecessary",
+            "text": "No silicones that only coat the hair. We keep what your hair needs and leave out everything it doesn't."
+          }
+        },
+        "principle_3": {
+          "type": "principle",
+          "settings": {
+            "icon": "shield",
+            "title": "Gentle by proof",
+            "text": "Vegan and dermatologically tested – care that is kind to the scalp, because strong hair grows from a healthy foundation."
+          }
+        }
+      },
+      "block_order": [
+        "principle_1",
+        "principle_2",
+        "principle_3"
+      ]
+    },
+    "split": {
+      "type": "split",
+      "settings": {
+        "eyebrow": "The Result",
+        "heading": "Stronger, healthier, more radiant hair",
+        "text": "<p>Luxury, to us, is not excess. It is precision – the right ingredients, in the right balance, in a ritual you look forward to every day.</p><p>That is why AZULA is just two essentials: a shampoo that strengthens and balances, and a conditioner that hydrates and restores.</p>",
+        "button_label": "Shop the Collection",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "eyebrow": "The AZULA Standard",
+        "title": "Nothing artificial.",
+        "title_accent": "Nothing unnecessary.",
+        "text": "",
+        "compact": true
+      },
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "value": "100%",
+            "label": "Natural ingredients"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "value": "0",
+            "label": "Silicones"
+          }
+        },
+        "fact_3": {
+          "type": "fact",
+          "settings": {
+            "value": "4",
+            "label": "Key botanicals"
+          }
+        },
+        "fact_4": {
+          "type": "fact",
+          "settings": {
+            "value": "Vegan",
+            "label": "Dermatologically tested"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4"
+      ]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "Read more in the Magazine",
+        "text": "Rituals, ingredients and knowledge for healthier hair.",
+        "button_label": "Discover the Magazine",
+        "button_link": "shopify://blogs/magazine"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "manifesto",
+    "principles",
+    "split",
+    "statement",
+    "cta"
+  ]
+}

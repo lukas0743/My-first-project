@@ -1,0 +1,24 @@
+{%- comment -%}
+  Compact bestseller card on the home page. Same markup as the static site's .product.
+  Accepts: product
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign tagline = product.metafields.custom.tagline.value
+-%}
+<article class="product" data-product="{{ product.title | escape }}">
+  <div class="product__media">
+    {%- render 'product-media', product: product, sizes: '(min-width: 1281px) 12vw, (min-width: 861px) 25vw, 50vw' -%}
+  </div>
+  <div class="product__body">
+    <h3 class="product__name"><a class="product__link" href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+    {%- if tagline != blank %}<p class="product__tag">{{ tagline }}</p>{% endif %}
+    <p class="product__price">{% render 'price', product: product, show_from: true %}</p>
+    {%- render 'stars', product: product -%}
+  </div>
+  {%- if product.has_only_default_variant -%}
+    <button class="product__add" type="button" data-add-variant="{{ variant.id }}" data-title="{{ product.title | escape }}" aria-label="{{ 'products.add_named_to_cart' | t: title: product.title }}"{% unless variant.available %} disabled{% endunless %}><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+  {%- else -%}
+    <a class="product__add" href="{{ product.url }}" aria-label="{{ 'products.choose_options_for' | t: title: product.title }}"><svg aria-hidden="true"><use href="#i-plus"/></svg></a>
+  {%- endif -%}
+</article>

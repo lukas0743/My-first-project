@@ -1,0 +1,22 @@
+{%- comment -%} Address form fields shared by "add" and "edit". Accepts: form, id {%- endcomment -%}
+<label for="AddressFirstName_{{ id }}">{{ 'customer.first_name' | t }}</label>
+<input type="text" id="AddressFirstName_{{ id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+<label for="AddressLastName_{{ id }}">{{ 'customer.last_name' | t }}</label>
+<input type="text" id="AddressLastName_{{ id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+<label for="AddressCompany_{{ id }}">{{ 'customer.addresses.company' | t }}</label>
+<input type="text" id="AddressCompany_{{ id }}" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+<label for="AddressAddress1_{{ id }}">{{ 'customer.addresses.address1' | t }}</label>
+<input type="text" id="AddressAddress1_{{ id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+<label for="AddressAddress2_{{ id }}">{{ 'customer.addresses.address2' | t }}</label>
+<input type="text" id="AddressAddress2_{{ id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+<label for="AddressZip_{{ id }}">{{ 'customer.addresses.zip' | t }}</label>
+<input type="text" id="AddressZip_{{ id }}" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code">
+<label for="AddressCity_{{ id }}">{{ 'customer.addresses.city' | t }}</label>
+<input type="text" id="AddressCity_{{ id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+<label for="AddressCountry_{{ id }}">{{ 'customer.addresses.country' | t }}</label>
+<select id="AddressCountry_{{ id }}" name="address[country]" autocomplete="country">{{ all_country_option_tags }}</select>
+<label for="AddressProvince_{{ id }}">{{ 'customer.addresses.province' | t }}</label>
+<input type="text" id="AddressProvince_{{ id }}" name="address[province]" value="{{ form.province }}" autocomplete="address-level1">
+<label for="AddressPhone_{{ id }}">{{ 'customer.addresses.phone' | t }}</label>
+<input type="tel" id="AddressPhone_{{ id }}" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+<label class="auth__check"><input type="checkbox" name="address[default]" value="1"{% if form.set_as_default_checkbox contains 'checked' %} checked{% endif %}> {{ 'customer.addresses.set_default' | t }}</label>

@@ -1,0 +1,27 @@
+<section class="section section--flush">
+  <div class="container">
+    {%- paginate collection.products by section.settings.per_page -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="shop-grid">
+          {%- for product in collection.products -%}
+            {%- assign delay = forloop.index0 | modulo: 3 | times: 0.1 -%}
+            {%- render 'product-card', product: product, delay: delay, heading_tag: 'h2' -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="empty-note">{{ 'collections.empty' | t }}</p>
+      {%- endif -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "tag": "div",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 3, "max": 24, "step": 3, "default": 12 }
+  ]
+}
+{% endschema %}

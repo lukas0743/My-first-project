@@ -1,0 +1,23 @@
+{%- comment -%}
+  Search bar that drops down from the header. Live results come from Shopify's predictive search
+  (sections/predictive-search.liquid); before typing it suggests a few products.
+{%- endcomment -%}
+<div class="searchbar" id="searchBar" role="dialog" aria-modal="true" aria-label="{{ 'search.title' | t }}" inert>
+  <div class="container searchbar__inner">
+    <form class="searchbar__form" role="search" action="{{ routes.search_url }}" method="get">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="sr-only" for="barInput">{{ 'search.label' | t: shop: shop.name }}</label>
+      <input type="search" id="barInput" name="q" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="drawer__close" type="button" data-close aria-label="{{ 'search.close' | t }}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+    </form>
+    <div id="barResults" data-suggestions>
+      <p class="search__count" role="status" aria-live="polite">{{ 'search.suggestions' | t }}</p>
+      <ul class="search__results">
+        {%- for product in collections.all.products limit: 3 -%}
+          <li><a href="{{ product.url }}"><span class="search__type">{{ 'search.types.product' | t }}</span><span class="search__title"><span>{{ product.title | escape }}</span><span class="search__desc">{{ product.metafields.custom.tagline.value | default: product.type }}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>

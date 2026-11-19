@@ -1,0 +1,38 @@
+<section class="section" id="{{ section.settings.anchor | default: 'ritual' | handle }}">
+  <div class="container">
+    <div class="section__head reveal">
+      {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      {%- if section.settings.heading != blank %}<h2 class="section__title">{{ section.settings.heading | escape }}</h2>{% endif %}
+    </div>
+    <ol class="steps">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 | times: 0.1 -%}
+        <li class="reveal" style="--d:{{ delay }}s" {{ block.shopify_attributes }}><span class="steps__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><h3>{{ block.settings.title | escape }}</h3><p>{{ block.settings.text | escape }}</p></li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Steps",
+  "tag": "div",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Haircare" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The AZULA Ritual" },
+    { "type": "text", "id": "anchor", "label": "Anchor name", "default": "ritual", "info": "Link to this section with #ritual, e.g. /collections/all#ritual." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Cleanse" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Steps", "blocks": [ { "type": "step" }, { "type": "step" }, { "type": "step" } ] } ]
+}
+{% endschema %}

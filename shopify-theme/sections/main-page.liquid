@@ -1,0 +1,20 @@
+<section class="page-hero page-hero--sm">
+  <div class="container">
+    <h1 class="page-hero__title load" style="--d:.2s">{{ page.title | escape }}</h1>
+  </div>
+</section>
+{%- if page.content != blank -%}
+  <section class="section section--flush">
+    <div class="container article-body">
+      <div class="rte reveal">{{ page.content }}</div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Page content",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

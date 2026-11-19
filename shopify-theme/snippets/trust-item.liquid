@@ -1,0 +1,2 @@
+{%- comment -%} One badge of the trust row (icon + label). Accepts: icon, label, block {%- endcomment -%}
+<li{% if block %} {{ block.shopify_attributes }}{% endif %}><svg aria-hidden="true"><use href="#i-{{ icon }}"/></svg><span>{{ label | escape | newline_to_br }}</span></li>

@@ -1,0 +1,235 @@
+{
+  "general": {
+    "home": "Home",
+    "shop": "Shop",
+    "skip_to_content": "Skip to content",
+    "breadcrumbs": "Breadcrumb",
+    "pagination": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {{ page }}",
+    "tagged": "Tagged \"{{ tags }}\"",
+    "not_found": {
+      "title": "This page",
+      "accent": "does not exist.",
+      "text": "The page you are looking for may have moved. Discover our collection instead."
+    }
+  },
+  "header": {
+    "main_nav": "Main",
+    "account": "Account",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "products": {
+    "add_to_cart": "Add to Bag",
+    "add_named_to_cart": "Add {{ title }} to bag",
+    "choose_options": "Choose options",
+    "choose_options_for": "Choose options for {{ title }}",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "from_price": "From {{ price }}",
+    "regular_price": "Regular price",
+    "save_amount": "Save {{ amount }}",
+    "rating": "{{ rating }} out of {{ max }} stars",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "gallery": "Product photos",
+    "show_image": "Show photo {{ number }}"
+  },
+  "cart": {
+    "title": "Your Bag",
+    "close": "Close bag",
+    "empty": "Your bag is still empty.",
+    "shop_collection": "Shop the Collection",
+    "items_label": "Items in your bag",
+    "icon_label": {
+      "one": "Shopping bag, {{ count }} item",
+      "other": "Shopping bag, {{ count }} items"
+    },
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "summary": "Summary",
+    "shipping": "Shipping",
+    "shipping_calculated": "Calculated at checkout",
+    "taxes_included": "Taxes included.",
+    "taxes_excluded": "Taxes calculated at checkout.",
+    "shipping_at_checkout": "Shipping is calculated at checkout.",
+    "shipping_at_checkout_html": "<a href=\"{{ link }}\">Shipping</a> is calculated at checkout.",
+    "checkout": "Checkout",
+    "view_full": "View full bag",
+    "continue": "Continue shopping",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity of {{ title }}",
+    "increase": "Increase quantity of {{ title }}",
+    "remove": "Remove",
+    "note": "Order note",
+    "added": "{{ title }} added to your bag",
+    "error": "Something went wrong. Please try again."
+  },
+  "collections": {
+    "empty": "There are no products in this collection yet.",
+    "all_title": "All collections",
+    "products_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "label": "Search {{ shop }}",
+    "placeholder": "Search products, ingredients, articles …",
+    "placeholder_short": "Shampoo, rosemary, ritual …",
+    "submit": "Search",
+    "close": "Close search",
+    "suggestions": "Suggestions",
+    "see_all": "See all results",
+    "results_count": {
+      "one": "{{ count }} result",
+      "other": "{{ count }} results"
+    },
+    "results_for": {
+      "one": "{{ count }} result for \"{{ terms }}\"",
+      "other": "{{ count }} results for \"{{ terms }}\""
+    },
+    "types": {
+      "product": "Product",
+      "collection": "Collection",
+      "page": "Page",
+      "article": "Magazine"
+    }
+  },
+  "reviews": {
+    "previous": "Previous reviews",
+    "next": "Next reviews",
+    "track_label": "Customer reviews, scroll sideways for more"
+  },
+  "newsletter": {
+    "email": "Email address",
+    "placeholder": "Your email address",
+    "success": "Thank you – welcome to the world of AZULA.",
+    "notify": "Notify me"
+  },
+  "blogs": {
+    "featured": "Featured",
+    "read_story": "Read the story",
+    "filter": "Filter articles",
+    "all": "All",
+    "empty": "No articles yet.",
+    "back": "Back to {{ blog }}",
+    "reading_time": "{{ minutes }} min read",
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "post": "Post comment",
+      "success": "Your comment was posted.",
+      "moderated": "Thank you! Your comment will appear once it has been approved.",
+      "count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    }
+  },
+  "customer": {
+    "eyebrow": "Account",
+    "email": "Email address",
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "login": {
+      "title": "Welcome",
+      "accent": "back",
+      "submit": "Sign In",
+      "forgot": "Forgot your password?",
+      "new": "New to AZULA?",
+      "create": "Create an account",
+      "guest": "Continue as guest"
+    },
+    "recover": {
+      "title": "Reset your password",
+      "text": "We will send you an email to reset your password.",
+      "submit": "Send",
+      "cancel": "Cancel",
+      "success": "We have sent you an email with a link to reset your password."
+    },
+    "register": {
+      "title": "Create an",
+      "accent": "account",
+      "submit": "Create account",
+      "have_account": "Already have an account?"
+    },
+    "account": {
+      "title": "Hello {{ name }}",
+      "orders": "Your orders",
+      "no_orders": "You have not placed any orders yet.",
+      "details": "Account details",
+      "addresses": {
+        "one": "{{ count }} saved address",
+        "other": "{{ count }} saved addresses"
+      },
+      "logout": "Sign out",
+      "back": "Back to your account"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "order": "Order",
+      "date": "Date",
+      "payment": "Payment",
+      "fulfillment": "Fulfillment",
+      "total": "Total",
+      "product": "Product",
+      "price": "Price",
+      "billing": "Billing address",
+      "shipping": "Shipping address",
+      "cancelled": "Cancelled",
+      "fulfilled_on": "Shipped on {{ date }}"
+    },
+    "addresses": {
+      "title": "Your addresses",
+      "default": "Default",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save address",
+      "add": "Add a new address",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "zip": "Postal code",
+      "country": "Country",
+      "province": "State / province",
+      "phone": "Phone",
+      "set_default": "Set as default address"
+    },
+    "activate": {
+      "title": "Activate your account",
+      "text": "Create a password to activate your account.",
+      "submit": "Activate account",
+      "decline": "Decline invitation"
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "text": "Enter a new password for your account.",
+      "submit": "Reset password"
+    }
+  },
+  "password": {
+    "owner": "Are you the store owner?",
+    "label": "Password",
+    "enter": "Enter"
+  },
+  "gift_card": {
+    "title": "Your {{ value }} gift card for {{ shop }}",
+    "eyebrow": "Gift card balance",
+    "code": "Gift card code",
+    "expired": "This gift card has expired.",
+    "disabled": "This gift card is disabled.",
+    "expires_on": "Valid until {{ date }}",
+    "shop": "Start shopping",
+    "print": "Print",
+    "apple_wallet": "Add to Apple Wallet"
+  }
+}

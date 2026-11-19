@@ -1,0 +1,40 @@
+{%- comment -%}
+  Slide-out bag. Rendered on every page (see layout/theme.liquid) and re-rendered through
+  Shopify's Section Rendering API whenever the cart changes.
+{%- endcomment -%}
+<aside class="drawer" id="bagDrawer" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}" data-cart-count="{{ cart.item_count }}" inert>
+  <header class="drawer__head">
+    <h2 class="drawer__title">{{ 'cart.title' | t }} {% if cart.item_count > 0 %}<span>({{ cart.item_count }})</span>{% endif %}</h2>
+    <button class="drawer__close" type="button" data-close aria-label="{{ 'cart.close' | t }}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+  </header>
+  <div class="drawer__body">
+    {%- if cart.item_count == 0 -%}
+      <div class="drawer__empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a class="btn btn--bronze btn--sm" href="{{ routes.all_products_collection_url }}">{{ 'cart.shop_collection' | t }}</a>
+      </div>
+    {%- else -%}
+      {% render 'cart-items', compact: true %}
+    {%- endif -%}
+  </div>
+  {%- if cart.item_count > 0 -%}
+    <footer class="drawer__foot">
+      {%- if cart.cart_level_discount_applications != blank -%}
+        <dl class="drawer__discounts">{% render 'cart-summary-lines' %}</dl>
+      {%- endif -%}
+      <p class="drawer__total"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money }}</strong></p>
+      <p class="drawer__note">{% render 'tax-note' %}</p>
+      <form action="{{ routes.cart_url }}" method="post">
+        <button class="btn btn--bronze drawer__checkout" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+      </form>
+      <a class="link-arrow" href="{{ routes.cart_url }}">{{ 'cart.view_full' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </footer>
+  {%- endif -%}
+</aside>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{%- comment -%}
+  Line items of the bag – used by the slide-out drawer (compact: true) and the cart page.
+  Quantity buttons are plain links to /cart/change so they also work without JavaScript;
+  azula.js turns them into instant updates.
+{%- endcomment -%}
+<ul class="bag__list{% if compact %} bag__list--compact{% endif %}" aria-label="{{ 'cart.items_label' | t }}">
+  {%- for item in cart.items -%}
+    {%- liquid
+      assign line = forloop.index
+      assign less = item.quantity | minus: 1
+      assign more = item.quantity | plus: 1
+      capture size_label
+        render 'product-size', product: item.product, variant: item.variant
+      endcapture
+    -%}
+    <li class="bag__item" data-line="{{ line }}">
+      <a class="bag__thumb" href="{{ item.url }}" aria-label="{{ item.product.title | escape }}">
+        {%- if item.image != blank and item.product.media.size < 2 -%}
+          {%- render 'shot', image: item.image, sizes: '6rem' -%}
+        {%- else -%}
+          {%- render 'product-media', product: item.product, image: item.image, sizes: '6rem' -%}
+        {%- endif -%}
+      </a>
+      <div>
+        <h3 class="bag__name">{{ item.product.title | escape }}</h3>
+        <p class="bag__meta">
+          {%- if size_label != blank %}{{ size_label }} · {% endif -%}
+          {{ item.final_price | money }}
+          {%- if item.original_price > item.final_price %} <s class="price__compare">{{ item.original_price | money }}</s>{% endif -%}
+        </p>
+        {%- for discount in item.line_level_discount_allocations -%}
+          <p class="bag__meta bag__discount">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>
+        {%- endfor -%}
+        {%- for property in item.properties -%}
+          {%- unless property.last == blank or property.first contains '_' -%}
+            <p class="bag__meta">{{ property.first | escape }}: {{ property.last | escape }}</p>
+          {%- endunless -%}
+        {%- endfor -%}
+        <div class="bag__controls">
+          <span class="qty">
+            <a href="{{ routes.cart_change_url }}?line={{ line }}&amp;quantity={{ less }}" data-line="{{ line }}" data-quantity="{{ less }}" role="button" aria-label="{{ 'cart.decrease' | t: title: item.product.title }}">−</a>
+            <span aria-label="{{ 'cart.quantity' | t }}">{{ item.quantity }}</span>
+            <a href="{{ routes.cart_change_url }}?line={{ line }}&amp;quantity={{ more }}" data-line="{{ line }}" data-quantity="{{ more }}" role="button" aria-label="{{ 'cart.increase' | t: title: item.product.title }}">+</a>
+          </span>
+          <a class="bag__remove" href="{{ item.url_to_remove }}" data-line="{{ line }}" data-quantity="0" role="button">{{ 'cart.remove' | t }}</a>
+        </div>
+      </div>
+      <span class="bag__price">{{ item.final_line_price | money }}</span>
+    </li>
+  {%- endfor -%}
+</ul>

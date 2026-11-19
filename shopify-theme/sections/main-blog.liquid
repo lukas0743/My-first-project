@@ -1,0 +1,94 @@
+<section class="page-hero">
+  <div class="container">
+    {%- if section.settings.eyebrow != blank %}<p class="eyebrow load" style="--d:.1s">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1 class="page-hero__title load" style="--d:.2s">
+      {{- section.settings.title | default: blog.title | escape | newline_to_br -}}
+      {%- if section.settings.title_accent != blank %}<br><em>{{ section.settings.title_accent | escape }}</em>{% endif -%}
+    </h1>
+    {%- if section.settings.text != blank %}<p class="page-hero__lead load" style="--d:.35s">{{ section.settings.text | escape }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="section section--flush">
+  <div class="container">
+    {%- paginate blog.articles by section.settings.per_page -%}
+      {%- liquid
+        assign show_featured = false
+        if section.settings.show_featured and paginate.current_page == 1 and current_tags == blank and blog.articles.size > 0
+          assign show_featured = true
+        endif
+      -%}
+      {%- assign skipped_count = 0 -%}
+      {%- if show_featured -%}
+        {%- assign skipped_count = 1 -%}
+        {%- assign featured = blog.articles.first -%}
+        <a class="featured reveal" href="{{ featured.url }}">
+          <div class="featured__visual" style="color:#3d5238">
+            {%- if featured.image -%}
+              {{ featured.image | image_url: width: 1400 | image_tag: class: 'featured__image', loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 861px) 55vw, 100vw' }}
+            {%- else -%}
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <use href="#sprig" x="90" y="20" width="150" height="280" transform="rotate(-28 165 300)"/>
+                <use href="#sprig" x="150" y="40" width="140" height="262" transform="rotate(10 220 300)"/>
+                <use href="#sprig" x="210" y="70" width="120" height="225" transform="rotate(38 270 300)"/>
+              </svg>
+            {%- endif -%}
+          </div>
+          <div class="featured__text">
+            <p class="eyebrow">{{ 'blogs.featured' | t }}{% if featured.tags.size > 0 %} · {{ featured.tags.first | escape }}{% endif %}</p>
+            <h2 class="section__title">{{ featured.title | escape }}</h2>
+            <p>{{ featured.excerpt_or_content | strip_html | truncatewords: 32 }}</p>
+            <span class="link-arrow">{{ 'blogs.read_story' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_filter and blog.all_tags.size > 0 -%}
+        <div class="chips reveal" role="group" aria-label="{{ 'blogs.filter' | t }}">
+          <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">{{ 'blogs.all' | t }}</button>
+          {%- for tag in blog.all_tags -%}
+            <button class="chip" type="button" data-filter="{{ tag | escape }}" aria-pressed="false">{{ tag | escape }}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if blog.articles.size > skipped_count -%}
+        <div class="articles" id="articles">
+          {%- assign skipped = 0 -%}
+          {%- for article in blog.articles -%}
+            {%- comment -%} The featured article is not repeated in the grid. {%- endcomment -%}
+            {%- if show_featured and forloop.first -%}{%- assign skipped = 1 -%}{%- continue -%}{%- endif -%}
+            {%- assign position = forloop.index0 | minus: skipped -%}
+            {%- assign delay = position | modulo: 3 | times: 0.1 -%}
+            {%- assign number = forloop.index | minus: skipped | plus: paginate.current_offset -%}
+            <a class="article reveal" href="{{ article.url }}" data-cat="{{ article.tags | join: '|' | escape }}" style="--d:{{ delay }}s">
+              <span class="article__num">{% if number < 10 %}0{% endif %}{{ number }}</span>
+              {%- if article.tags.size > 0 %}<span class="article__cat">{{ article.tags.first | escape }}</span>{% endif %}
+              <h3>{{ article.title | escape }}</h3>
+              <span class="article__meta">{% render 'reading-time', article: article %}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="empty-note">{{ 'blogs.empty' | t }}</p>
+      {%- endif -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Magazine",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Magazine" },
+    { "type": "textarea", "id": "title", "label": "Headline", "info": "Leave empty to use the blog title." },
+    { "type": "text", "id": "title_accent", "label": "Headline accent (bronze, italic)" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "show_featured", "label": "Feature the newest article", "default": true },
+    { "type": "checkbox", "id": "show_filter", "label": "Show topic filter (from article tags)", "default": true },
+    { "type": "range", "id": "per_page", "label": "Articles per page", "min": 3, "max": 24, "step": 3, "default": 12 }
+  ]
+}
+{% endschema %}

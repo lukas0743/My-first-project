@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "The Collection",
+        "title": "Natural care,",
+        "title_accent": "perfected.",
+        "text": "<p>Two essentials. One ritual. Everything your hair needs – and nothing it doesn't.</p>"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "per_page": 12
+      }
+    },
+    "ritual": {
+      "type": "ritual-steps",
+      "settings": {
+        "eyebrow": "Haircare",
+        "heading": "The AZULA Ritual",
+        "anchor": "ritual"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Cleanse",
+            "text": "Massage the shampoo into wet hair and scalp. Take a moment – the scalp is where healthy hair begins. Rinse thoroughly."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Care",
+            "text": "Work the conditioner through lengths and ends. Leave on for two to three minutes, then rinse with lukewarm water."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Result",
+            "text": "Hair that feels stronger, softer and lighter – with a natural shine that needs no silicones to exist."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "badges": {
+      "type": "trust-badges",
+      "settings": {},
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "100% Natural\nIngredients"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "flask",
+            "label": "Silicone\nFree"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "lotus",
+            "label": "Vegan"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "label": "Dermatologically\nTested"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "What goes inside matters",
+        "text": "Discover the four botanicals behind every AZULA formula.",
+        "button_label": "Explore Ingredients",
+        "button_link": "shopify://pages/ingredients"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "main",
+    "ritual",
+    "badges",
+    "cta"
+  ]
+}

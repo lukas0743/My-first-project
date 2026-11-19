@@ -1,0 +1,33 @@
+{%- comment -%}
+  Results of the header search bar. Not placed on any page: azula.js loads it from
+  /search/suggest?section_id=predictive-search while the visitor types.
+{%- endcomment -%}
+{%- liquid
+  assign results = predictive_search.resources
+  assign total = results.products.size | plus: results.pages.size | plus: results.articles.size | plus: results.collections.size
+-%}
+<p class="search__count" role="status" aria-live="polite">{{ 'search.results_count' | t: count: total }}</p>
+<ul class="search__results">
+  {%- for product in results.products -%}
+    <li><a href="{{ product.url }}"><span class="search__type">{{ 'search.types.product' | t }}</span><span class="search__title"><span>{{ product.title | escape }}</span><span class="search__desc">{{ product.metafields.custom.tagline.value | default: product.type }}{% if product.metafields.custom.tagline.value != blank or product.type != blank %} · {% endif %}{% render 'price', product: product, show_from: true %}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+  {%- endfor -%}
+  {%- for collection in results.collections -%}
+    <li><a href="{{ collection.url }}"><span class="search__type">{{ 'search.types.collection' | t }}</span><span class="search__title"><span>{{ collection.title | escape }}</span><span class="search__desc">{{ collection.description | strip_html | truncatewords: 10 }}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+  {%- endfor -%}
+  {%- for page in results.pages -%}
+    <li><a href="{{ page.url }}"><span class="search__type">{{ 'search.types.page' | t }}</span><span class="search__title"><span>{{ page.title | escape }}</span><span class="search__desc">{{ page.content | strip_html | truncatewords: 10 }}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+  {%- endfor -%}
+  {%- for article in results.articles -%}
+    <li><a href="{{ article.url }}"><span class="search__type">{{ 'search.types.article' | t }}</span><span class="search__title"><span>{{ article.title | escape }}</span><span class="search__desc">{{ article.blog.title | escape }}</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+  {%- endfor -%}
+</ul>
+{%- if total > 0 -%}
+  <a class="link-arrow" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&amp;options%5Bprefix%5D=last">{{ 'search.see_all' | t }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Predictive search",
+  "settings": []
+}
+{% endschema %}

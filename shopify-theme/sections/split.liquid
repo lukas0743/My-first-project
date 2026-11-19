@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="container split">
+    <div class="split__visual reveal">
+      {%- render 'shot', image: section.settings.image_1, fallback: 'shampoo.jpg', sizes: '(min-width: 861px) 25vw, 50vw' -%}
+      {%- render 'shot', image: section.settings.image_2, fallback: 'conditioner.jpg', sizes: '(min-width: 861px) 25vw, 50vw' -%}
+    </div>
+    <div class="split__text reveal" style="--d:.15s">
+      {%- if section.settings.eyebrow != blank %}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      {%- if section.settings.heading != blank %}<h2 class="section__title">{{ section.settings.heading | escape }}</h2>{% endif %}
+      {{ section.settings.text }}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--bronze" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Photos with text",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "First photo", "info": "Without a photo the original AZULA shampoo photo is shown." },
+    { "type": "image_picker", "id": "image_2", "label": "Second photo", "info": "Without a photo the original AZULA conditioner photo is shown." },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "The Result" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stronger, healthier, more radiant hair" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Luxury, to us, is not excess. It is precision – the right ingredients, in the right balance, in a ritual you look forward to every day.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the Collection" },
+    { "type": "url", "id": "button_link", "label": "Button link", "default": "/collections/all" }
+  ],
+  "presets": [ { "name": "Photos with text" } ]
+}
+{% endschema %}

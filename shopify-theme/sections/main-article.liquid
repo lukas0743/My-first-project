@@ -1,0 +1,63 @@
+<article class="article-page">
+  <section class="page-hero page-hero--sm">
+    <div class="container">
+      <p class="eyebrow load" style="--d:.1s">
+        {%- if article.tags.size > 0 %}{{ article.tags.first | escape }} · {% endif -%}
+        {%- render 'reading-time', article: article -%}
+      </p>
+      <h1 class="page-hero__title load" style="--d:.2s">{{ article.title | escape }}</h1>
+      <p class="page-hero__lead load" style="--d:.35s">{{ article.published_at | time_tag: format: 'date' }}{% if section.settings.show_author %} · {{ article.author | escape }}{% endif %}</p>
+    </div>
+  </section>
+  <section class="section section--flush">
+    <div class="container article-body">
+      {%- if article.image -%}
+        <div class="article-body__image reveal">
+          {{ article.image | image_url: width: 1800 | image_tag: loading: 'eager', widths: '600, 900, 1200, 1800', sizes: '(min-width: 1025px) 56rem, 100vw', class: 'featured__image' }}
+        </div>
+      {%- endif -%}
+      <div class="rte reveal">{{ article.content }}</div>
+      <p class="article-body__back"><a class="link-arrow" href="{{ blog.url }}"><svg class="pagination__prev" aria-hidden="true"><use href="#i-arrow"/></svg> {{ 'blogs.back' | t: blog: blog.title }}</a></p>
+
+      {%- if blog.comments_enabled? -%}
+        <div class="article-comments">
+          {%- if article.comments_count > 0 -%}
+            <h2 class="section__title">{{ 'blogs.comments.count' | t: count: article.comments_count }}</h2>
+            {%- paginate article.comments by 10 -%}
+              <ul class="article-comments__list">
+                {%- for comment in article.comments -%}
+                  <li><div class="rte">{{ comment.content }}</div><p class="article__meta">{{ comment.author | escape }} · {{ comment.created_at | time_tag: format: 'date' }}</p></li>
+                {%- endfor -%}
+              </ul>
+              {%- render 'pagination', paginate: paginate -%}
+            {%- endpaginate -%}
+          {%- endif -%}
+          {%- form 'new_comment', article, class: 'auth auth--wide' -%}
+            <h2 class="section__title">{{ 'blogs.comments.title' | t }}</h2>
+            {%- if form.posted_successfully? -%}
+              <p class="auth__msg" role="status">{% if blog.moderated? %}{{ 'blogs.comments.moderated' | t }}{% else %}{{ 'blogs.comments.success' | t }}{% endif %}</p>
+            {%- endif -%}
+            {%- if form.errors %}<div class="auth__msg is-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+            <label for="CommentAuthor">{{ 'blogs.comments.name' | t }}</label>
+            <input type="text" id="CommentAuthor" name="comment[author]" value="{{ form.author }}" autocomplete="name" required>
+            <label for="CommentEmail">{{ 'blogs.comments.email' | t }}</label>
+            <input type="email" id="CommentEmail" name="comment[email]" value="{{ form.email }}" autocomplete="email" required>
+            <label for="CommentBody">{{ 'blogs.comments.message' | t }}</label>
+            <textarea id="CommentBody" name="comment[body]" rows="5" required>{{ form.body }}</textarea>
+            <button class="btn btn--bronze" type="submit">{{ 'blogs.comments.post' | t }}</button>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "tag": "div",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": false }
+  ]
+}
+{% endschema %}

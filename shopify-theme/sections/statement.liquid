@@ -1,0 +1,53 @@
+<section class="statement{% if section.settings.compact %} statement--compact{% endif %}">
+  <div class="container">
+    {%- if section.settings.eyebrow != blank %}<p class="eyebrow reveal">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h2 class="statement__title reveal" style="--d:.1s">
+      {{- section.settings.title | escape -}}
+      {%- if section.settings.title_accent != blank %}<br><em>{{ section.settings.title_accent | escape }}</em>{% endif -%}
+    </h2>
+    {%- if section.settings.text != blank %}<p class="statement__text reveal" style="--d:.2s">{{ section.settings.text | escape }}</p>{% endif %}
+    {%- if section.blocks.size > 0 -%}
+      <dl class="facts reveal" style="--d:{% if section.settings.text != blank %}.3{% else %}.2{% endif %}s">
+        {%- for block in section.blocks -%}
+          <div {{ block.shopify_attributes }}><dt>{{ block.settings.value | escape }}</dt><dd>{{ block.settings.label | escape }}</dd></div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Statement",
+  "tag": "div",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "The AZULA Standard" },
+    { "type": "text", "id": "title", "label": "Headline", "default": "Nothing artificial." },
+    { "type": "text", "id": "title_accent", "label": "Headline, second line (bronze)", "default": "Nothing unnecessary." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every formula begins with the plant, not the lab. We keep what your hair needs and leave out everything it doesn't." },
+    { "type": "checkbox", "id": "compact", "label": "Less spacing", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Key figure",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Natural ingredients" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Statement",
+      "blocks": [
+        { "type": "fact", "settings": { "value": "100%", "label": "Natural ingredients" } },
+        { "type": "fact", "settings": { "value": "0", "label": "Silicones" } },
+        { "type": "fact", "settings": { "value": "4", "label": "Key botanicals" } },
+        { "type": "fact", "settings": { "value": "Vegan", "label": "Dermatologically tested" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
